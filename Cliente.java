@@ -18,7 +18,6 @@ public class Cliente {
 		ultimo++;
 		IDCliente = ultimo;
 	}
-		
 	public int getIDCliente() {
 		return IDCliente;
 	}
@@ -42,7 +41,7 @@ public class Cliente {
 	public void setContacto(String contacto) {
 		this.contacto = contacto;
 	}
-		
+	
 	public void setNIF(int NIF) {
 		this.NIF = NIF;
 	}

@@ -57,9 +57,10 @@ public class ProdutoPesca extends Produto{
 	}
 	
 	public int getGarantia() {
-		return garantia;
+		return garantia; 
 	}
 
+	
 	public void setGarantia(int garantia) {
 		if (garantia >= 0) {
 			this.garantia = garantia;

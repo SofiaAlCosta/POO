@@ -8,10 +8,9 @@ public class ProdutoCaca extends Produto {
     private boolean resistenciaAgua;
     private String nivelSeguranca;
 
-    public ProdutoCaca(Produto p, double alcanceMaximo, String paisOrigem, double peso, String material,
+    public ProdutoCaca(Produto p,String paisOrigem, double alcanceMaximo,  double peso, String material,
     		boolean requisitosLicenca, int garantia, boolean resistenciaAgua, String nivelSeguranca) {
-        super(p.getIDProduto(), p.getNome(), p.getDescricao(), p.getPreco(), p.getQuantidadeStock(),
-              p.getCategoria(), p.getDataInclusao(), p.isAtivo());
+        super(p.getNome(), p.getDescricao(), p.getPreco(),p.getCategoria(), p.getAtivo());
         this.alcanceMaximo = alcanceMaximo; 
         this.paisOrigem = paisOrigem;
         this.peso = peso;
@@ -34,11 +33,11 @@ public class ProdutoCaca extends Produto {
         return peso;
     }
 
-    public void setPeso(double peso) {
+	public void setPeso(double peso) {
         if (peso >= 0) {
             this.peso = peso;
         } else {
-            throw new IllegalArgumentException("O peso não pode ser negativo.");
+            throw new LojaException("O peso não pode ser negativo.");
         }
     }
 
@@ -66,7 +65,7 @@ public class ProdutoCaca extends Produto {
         if (garantia >= 0) {
             this.garantia = garantia;
         } else {
-            throw new IllegalArgumentException("A garantia não pode ser negativa.");
+            throw new LojaException("A garantia não pode ser negativa.");
         }
     }
 
@@ -123,7 +122,14 @@ public class ProdutoCaca extends Produto {
 
     @Override
     public ProdutoCaca clone() {
-        ProdutoCaca copia = (ProdutoCaca) super.clone();
+    	 Produto produtoCopia = new Produto();
+         produtoCopia.setNome(this.getNome());
+         produtoCopia.setDescricao(this.getDescricao());
+         produtoCopia.setPreco(this.getPreco());
+         produtoCopia.setCategoria(this.getCategoria());
+         produtoCopia.setAtivo(this.getAtivo());
+        ProdutoCaca copia = new ProdutoCaca(produtoCopia, this.paisOrigem, this.alcanceMaximo, 
+        		this.peso, this.material, this.requisitosLicenca, this.garantia, this.resistenciaAgua, this.nivelSeguranca);
         return copia;
     }
     
@@ -131,7 +137,7 @@ public class ProdutoCaca extends Produto {
         if (mesesAdicionais > 0) {
             this.garantia += mesesAdicionais;
         } else {
-            throw new IllegalArgumentException("O tempo adicional deve ser positivo.");
+            throw new LojaException("O tempo adicional deve ser positivo.");
         }
     }
 
@@ -155,10 +161,6 @@ public class ProdutoCaca extends Produto {
         return Double.compare(this.alcanceMaximo, outroProduto.alcanceMaximo);
     }
     
-    public double calcularPesoTotalEstoque() {
-        return this.getPeso() * this.getQuantidadeStock();
-    }
-
     public boolean isAltaSeguranca() {
         return this.nivelSeguranca.equalsIgnoreCase("Alta");
     }

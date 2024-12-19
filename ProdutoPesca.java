@@ -33,6 +33,7 @@ public class ProdutoPesca extends Produto{
 		this.material = material;
 	}
 
+
 	public double getPeso() {
 		return peso;
 	}

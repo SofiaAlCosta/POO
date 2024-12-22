@@ -52,7 +52,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
             System.out.print("NIF: ");
             int NIF = myinputs.Ler.umInt();
             
-            if (NIF < 100000000 || NIF > 999999999) { // Verificando se o NIF tem 9 dígitos
+            if (NIF < 100000000 || NIF > 999999999) { 
                 throw new LojaException("O NIF deve ter 9 dígitos.");
             }
             
@@ -120,7 +120,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Ficheiro de clientes não encontrado. Criando novo ficheiro...");
+            System.out.println("Ficheiro de clientes não encontrado");
         } catch (IOException e) {
             System.out.println("Erro ao carregar os clientes. Detalhes: " + e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -139,7 +139,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
     
     public static void removerCliente() {
         try {
-            System.out.print("Digite o ID do cliente a ser removido: ");
+            System.out.print("Digite o ID do cliente para ser removido: ");
             int idCliente = myinputs.Ler.umInt(); 
             
             ArrayList<Cliente> clientes = carregarClientes();

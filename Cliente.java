@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente implements Cloneable, Serializable {
+public class Cliente implements Serializable { //Serializable serve para guardar salvar um arquivo para binario
     private int IDCliente;
     private String nome;
     private String contacto;

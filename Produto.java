@@ -1,36 +1,39 @@
-import java.time.LocalDate;
+import java.util.UUID; //biblioteca para gerar IDs universais de 36 caracteres
 
 public class Produto {
 	private String IDProduto;
 	private String nome;
 	private String descricao;
 	private double preco;
-	private int quantidadeStock;
 	private String categoria;
-	private LocalDate dataInclusao;
 	private boolean ativo;
 	
-	public Produto(String IDProduto, String nome) {
-		this.IDProduto = IDProduto;
+	public Produto() {  //Construtor Vazio
+        this.IDProduto = UUID.randomUUID().toString(); //UUID
+        this.nome = "";
+        this.descricao = "";
+        this.preco = 0.0;
+        this.categoria = "";
+        this.ativo = true;
+    }
+
+	public Produto(String nome) { //Construtor só com o nome
+		this.IDProduto = UUID.randomUUID().toString();
 		this.nome = nome;
 		
 		this.descricao= "";
 		this.preco = 0.0;
-		this.quantidadeStock = 0;
         this.categoria = "";
-        this.dataInclusao = LocalDate.now();
         this.ativo = true;
 	}
-	public Produto(String IDProduto, String nome, String descricao, double preco, int quantidadeStock, 
-            String categoria, LocalDate dataInclusao, boolean ativo) {
-	 this.IDProduto = IDProduto;
-	 this.nome = nome;
-	 this.descricao = descricao;
-	 this.preco = preco;
-	 this.quantidadeStock = quantidadeStock;
-	 this.categoria = categoria;
-	 this.dataInclusao = dataInclusao;
-	 this.ativo = ativo;
+	public Produto(String nome, String descricao, double preco, 
+            String categoria, boolean ativo) { //Construtor completo
+		this.IDProduto = UUID.randomUUID().toString();
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.categoria = categoria;
+		this.ativo = ativo;
 }
 	public String getIDProduto() {
 		return IDProduto;
@@ -46,7 +49,7 @@ public class Produto {
 	    if (nome != null && !nome.trim().isEmpty()) {
 	        this.nome = nome;
 	    } else {
-	        throw new IllegalArgumentException("O nome do produto não pode ser vazio ou nulo.");
+	        throw new LojaException("O nome do produto não pode ser vazio ou nulo.");
 	    }
 	}
 
@@ -54,7 +57,7 @@ public class Produto {
 	    if (descricao != null && !descricao.trim().isEmpty()) {
 	        this.descricao = descricao;
 	    } else {
-	        throw new IllegalArgumentException("A descrição do produto não pode ser vazia ou nula.");
+	        throw new LojaException("A descrição do produto não pode ser vazia ou nula.");
 	    }
 	}
 	public String getDescricao() {
@@ -68,32 +71,18 @@ public class Produto {
         if (preco >= 0) {
             this.preco = preco;
         } else {
-            throw new IllegalArgumentException("O preço não pode ser negativo.");
+            throw new LojaException("O preço não pode ser negativo.");
         }
     }
-	public int getQuantidadeStock() {
-		return quantidadeStock;
-	}
-	 public void setQuantidadeStock(int quantidadeEmEstoque) {
-	        if (quantidadeEmEstoque >= 0) {
-	            this.quantidadeStock = quantidadeEmEstoque;
-	        } else {
-	            throw new IllegalArgumentException("A quantidade em estoque não pode ser negativa.");
-	        }
-	    }
+
 	public String getCategoria() {
 		return categoria;
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
-	}
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
-	}
-	public boolean isAtivo() {
+
+	public boolean getAtivo() {
 		return ativo;
 	}
 	public void setAtivo(boolean ativo) {
@@ -106,9 +95,7 @@ public class Produto {
 	           "  Nome: " + nome + "\n" +
 	           "  Descrição: " + descricao + "\n" +
 	           "  Preço: " + preco + "\n" +
-	           "  Quantidade em Estoque: " + quantidadeStock + "\n" +
 	           "  Categoria: " + categoria + "\n" +
-	           "  Data de Inclusão: " + dataInclusao + "\n" +
 	           "  Ativo: " + ativo;
 	}
 	
@@ -116,52 +103,21 @@ public class Produto {
 		if (obj!=null && this.getClass() == obj.getClass()) {
 			Produto p = (Produto) obj;
 			return this.IDProduto.equals(p.IDProduto) && this.nome.equals(p.nome) &&
-					this.descricao.equals(p.descricao) && this.preco == p.preco &&
-					this.quantidadeStock == p.quantidadeStock && this.categoria.equals(p.categoria) &&
-					this.dataInclusao.equals(p.dataInclusao) && this.ativo == p.ativo;
+					this.descricao.equals(p.descricao) && this.preco == p.preco && this.categoria.equals(p.categoria) && this.ativo == p.ativo;
 		}return false;
 	}
 	
 	public Object clone() {
-		Produto copia = new Produto(this.IDProduto, this.nome, this.descricao , this.preco , 
-				this.quantidadeStock ,this.categoria ,this.dataInclusao ,this.ativo);
-		return copia;
-	}
+        Produto copia = new Produto(this.nome, this.descricao, this.preco, this.categoria, this.ativo);
+        return copia;
+    }
 	
-	public void verificarAtivo() {
-	    if (this.quantidadeStock <= 0) {
-	        this.ativo = false;
-	    }
-	}
-	
-	public void AdicionarStock(int quantidade) {
-		if (quantidade > 0) {
-			this.quantidadeStock += quantidade;
-		}else { throw new IllegalArgumentException("A quantidade deve ser positiva");
-	}
-	}
-		
-	public void RemoverStock(int quantidade) {
-		if (quantidade > 0) {
-			this.quantidadeStock -= quantidade;
-			verificarAtivo();
-		}else {throw new IllegalArgumentException("A quantidade deve ser positiva");
-	}
-}
 	public void aplicarDesconto(double perc) {
 		if (perc > 0 && perc < 100) {
 			this.preco -= this.preco * (perc /100.0);
 		}else {
-			throw new IllegalArgumentException("Percentual de desconto invalido");
+			throw new LojaException("Percentual de desconto invalido");
 		}
-	}
-
-	public boolean isProdutoRecente() {
-	    return this.dataInclusao.isAfter(LocalDate.now().minusDays(30));
-	}
-	
-	public double calcularValorTotalStock() {
-	    return this.preco * this.quantidadeStock;
 	}
 	
 	public int compararPorPreco(Produto outroProduto) {

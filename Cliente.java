@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente implements Serializable { //Serializable serve para guardar salvar um arquivo para binario
+public class Cliente implements Serializable { //Serializable serve para salvar o arquivo como binário
     private int IDCliente;
     private String nome;
     private String contacto;
@@ -13,7 +13,7 @@ public class Cliente implements Serializable { //Serializable serve para guardar
 
     // Construtor
     public Cliente(String nome, String contacto, int NIF) {
-        this.IDCliente = ++ultimoID; // ID automatico
+        this.IDCliente = ++ultimoID; // ID automático
         this.nome = nome;
         this.contacto = contacto;
         this.NIF = NIF;
@@ -31,16 +31,16 @@ public class Cliente implements Serializable { //Serializable serve para guardar
     public void setNIF(int NIF) { this.NIF = NIF; }
 
     @Override
- 	public String toString() {
-		return "Cliente {" +
-	            "IDCliente='" + IDCliente + '\'' +
-	            ", Nome='" + nome + '\'' +
-	            ", Contacto='" + contacto + '\'' +
-	            ", NIF=" + NIF +
-	            '}';	
-	}
+    public String toString() {
+        return "Cliente {" +
+                "IDCliente='" + IDCliente + '\'' +
+                ", Nome='" + nome + '\'' +
+                ", Contacto='" + contacto + '\'' +
+                ", NIF=" + NIF +
+                '}';
+    }
 
-    // Método para fazer registo dum Cliente
+    // Método para registrar um novo Cliente
     public static void registrar() {
         try {
             System.out.print("Nome: ");
@@ -51,7 +51,11 @@ public class Cliente implements Serializable { //Serializable serve para guardar
 
             System.out.print("NIF: ");
             int NIF = myinputs.Ler.umInt();
-
+            
+            if (NIF < 100000000 || NIF > 999999999) { // Verificando se o NIF tem 9 dígitos
+                throw new LojaException("O NIF deve ter 9 dígitos.");
+            }
+            
             Cliente novoCliente = new Cliente(nome, contacto, NIF);
             salvarCliente(novoCliente); // Salva no ficheiro
             System.out.println("Cliente registrado com sucesso!");
@@ -71,7 +75,7 @@ public class Cliente implements Serializable { //Serializable serve para guardar
 
             List<Cliente> clientes = carregarClientes(); // Carrega os clientes
             for (Cliente c : clientes) {
-                if (c.getNome().equals(nome) && c.getNIF() == NIF) { //se for igual ao que tiver no ficheiro binario
+                if (c.getNome().equals(nome) && c.getNIF() == NIF) { //se for igual ao que tiver no ficheiro binário
                     System.out.println("Login bem-sucedido! Bem-vindo, " + c.getNome()); //login
                     return c;
                 }
@@ -86,8 +90,12 @@ public class Cliente implements Serializable { //Serializable serve para guardar
 
     // Salvar Cliente no ficheiro usando serialização
     public static void salvarCliente(Cliente cliente) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME, true))) {
-            oos.writeObject(cliente); // Salva o objeto Cliente no arquivo binário
+        ArrayList<Cliente> clientes = carregarClientes(); // Carrega os clientes atuais
+        clientes.add(cliente); // Adiciona o novo cliente à lista
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+            for (Cliente c : clientes) {
+                oos.writeObject(c); // Salva todos os clientes no arquivo binário
+            }
         } catch (IOException e) {
             throw new LojaException("Erro ao salvar cliente.", e);
         }
@@ -111,7 +119,7 @@ public class Cliente implements Serializable { //Serializable serve para guardar
                     break;
                 }
             }
-        } catch (LojaException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Ficheiro de clientes não encontrado. Criando novo ficheiro...");
         } catch (IOException e) {
             System.out.println("Erro ao carregar os clientes. Detalhes: " + e.getMessage());
@@ -121,5 +129,52 @@ public class Cliente implements Serializable { //Serializable serve para guardar
         
         return clientes;
     }
+    public static void limparFicheiro() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+            // Só cria um ficheiro vazio
+        } catch (IOException e) {
+            System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
+        }
+    }
+    
+    public static void removerCliente() {
+        try {
+            System.out.print("Digite o ID do cliente a ser removido: ");
+            int idCliente = myinputs.Ler.umInt(); 
+            
+            ArrayList<Cliente> clientes = carregarClientes();
+
+            boolean clienteRemovido = false;
+
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getIDCliente() == idCliente) {
+                    clientes.remove(i); // Remove o cliente da lista
+                    clienteRemovido = true;
+                    break;
+                }
+            }
+
+            // se clienteRemovido == true
+            if (clienteRemovido) {
+                // Limpa o arquivo
+                limparFicheiro();
+
+                // Volta a meter os clientes no arquivo
+                for (Cliente cliente : clientes) {
+                    salvarCliente(cliente);
+                }
+
+                System.out.println("Cliente removido com sucesso!");
+            } else {
+                throw new LojaException("Cliente não encontrado.");
+            }
+        } catch (LojaException e) {
+            System.out.println("Erro ao remover cliente: " + e.getMessage());
+        } catch (Exception e) {
+            throw new LojaException("Erro inesperado ao remover o cliente.", e);
+        }
+    }
+
+
 
 }

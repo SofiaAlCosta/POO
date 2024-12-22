@@ -20,13 +20,13 @@ public class Loja {
 
                 switch (opcao) {
                     case 1:
-                        Cliente.registrar();
+                        Cliente.registar();
                         break;
                     case 2:
                         Cliente.login();
                         break;
                     case 3:
-                        ArrayList<Cliente> clientes = Cliente.carregarClientes();
+                        ArrayList<Cliente> clientes = Cliente.lerClientes();
                         System.out.println("Clientes registrados:");
                         for (Cliente c : clientes) {
                             System.out.println(c);

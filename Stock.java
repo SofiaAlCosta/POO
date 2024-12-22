@@ -21,9 +21,9 @@ public class Stock implements Serializable{
         quantidades.add(quantidadeInicial);
     }
 
-    public void atualizarStock(String IDProduto, int quantidade) {
+    public void atualizarStock(int IDProduto, int quantidade) {
         for (int i = 0; i < catalogo.size(); i++) {
-            if (catalogo.get(i).getIDProduto().equals(IDProduto)) {
+            if (catalogo.get(i).getIDProduto() == IDProduto) {
                 int novaQuantidade = quantidades.get(i) + quantidade;
                 if (novaQuantidade < 0) {
                     throw new LojaException("Stock não pode ser negativo.");
@@ -35,9 +35,9 @@ public class Stock implements Serializable{
         throw new LojaException("Produto não encontrado no catálogo.");
     }
 
-    public boolean isDisponivel(String IDProduto) {
+    public boolean isDisponivel(int IDProduto) {
         for (int i = 0; i < catalogo.size(); i++) {
-            if (catalogo.get(i).getIDProduto().equals(IDProduto)) {
+            if (catalogo.get(i).getIDProduto() == IDProduto) {
                 return quantidades.get(i) > 0;
             }
         }
@@ -51,7 +51,8 @@ public class Stock implements Serializable{
             throw new LojaException("Erro ao salvar o estado do stock.", e);
         }
     }
-    public static Stock carregarStock() {
+    //ler o ficheiro
+    public static Stock lerStock() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
             return (Stock) ois.readObject();
         } catch (FileNotFoundException e) {
@@ -59,6 +60,15 @@ public class Stock implements Serializable{
             return new Stock();
         } catch (IOException | ClassNotFoundException e) {
             throw new LojaException("Erro ao carregar o estado do stock.", e);
+        }
+    }
+    
+    public void mostrarStock() {
+        System.out.println("Estado atual do stock:");
+        for (int i = 0; i < catalogo.size(); i++) {
+            Produto produto = catalogo.get(i);
+            int quantidade = quantidades.get(i);
+            System.out.println(produto + "\n  Quantidade: " + quantidade);
         }
     }
 }

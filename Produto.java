@@ -1,15 +1,14 @@
-import java.util.UUID; //biblioteca para gerar IDs universais de 36 caracteres
-
 public class Produto {
-	private String IDProduto;
+	private int IDProduto;
 	private String nome;
 	private String descricao;
 	private double preco;
 	private String categoria;
 	private boolean ativo;
+	private static int ultimo = 0;
 	
 	public Produto() {  //Construtor Vazio
-        this.IDProduto = UUID.randomUUID().toString(); //UUID
+        this.IDProduto = ++ultimo; 
         this.nome = "";
         this.descricao = "";
         this.preco = 0.0;
@@ -18,7 +17,7 @@ public class Produto {
     }
 
 	public Produto(String nome) { //Construtor só com o nome
-		this.IDProduto = UUID.randomUUID().toString();
+		this.IDProduto = ++ultimo;
 		this.nome = nome;
 		
 		this.descricao= "";
@@ -28,17 +27,17 @@ public class Produto {
 	}
 	public Produto(String nome, String descricao, double preco, 
             String categoria, boolean ativo) { //Construtor completo
-		this.IDProduto = UUID.randomUUID().toString();
+		this.IDProduto = ++ultimo;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.ativo = ativo;
 }
-	public String getIDProduto() {
+	public int getIDProduto() {
 		return IDProduto;
 	}
-	public void setIDProduto(String IDProduto) {
+	public void setIDProduto(int IDProduto) {
 		this.IDProduto = IDProduto;
 	}
 	public String getNome() {
@@ -102,7 +101,7 @@ public class Produto {
 	public boolean equals(Object obj) {
 		if (obj!=null && this.getClass() == obj.getClass()) {
 			Produto p = (Produto) obj;
-			return this.IDProduto.equals(p.IDProduto) && this.nome.equals(p.nome) &&
+			return this.IDProduto == p.IDProduto && this.nome.equals(p.nome) &&
 					this.descricao.equals(p.descricao) && this.preco == p.preco && this.categoria.equals(p.categoria) && this.ativo == p.ativo;
 		}return false;
 	}

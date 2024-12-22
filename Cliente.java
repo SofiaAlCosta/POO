@@ -40,8 +40,8 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
                 '}';
     }
 
-    // Método para registrar um novo Cliente
-    public static void registrar() {
+    // Método para registar um novo Cliente
+    public static void registar() {
         try {
             System.out.print("Nome: ");
             String nome = myinputs.Ler.umaString();
@@ -57,7 +57,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
             }
             
             Cliente novoCliente = new Cliente(nome, contacto, NIF);
-            salvarCliente(novoCliente); // Salva no ficheiro
+            adicionarCliente(novoCliente); 
             System.out.println("Cliente registrado com sucesso!");
         } catch (LojaException e) {
             System.out.println("Erro ao registrar cliente: " + e.getMessage());
@@ -73,7 +73,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
             System.out.print("NIF: ");
             int NIF = myinputs.Ler.umInt();
 
-            List<Cliente> clientes = carregarClientes(); // Carrega os clientes
+            List<Cliente> clientes = lerClientes(); 
             for (Cliente c : clientes) {
                 if (c.getNome().equals(nome) && c.getNIF() == NIF) { //se for igual ao que tiver no ficheiro binário
                     System.out.println("Login bem-sucedido! Bem-vindo, " + c.getNome()); //login
@@ -88,9 +88,8 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
         return null;
     }
 
-    // Salvar Cliente no ficheiro usando serialização
-    public static void salvarCliente(Cliente cliente) {
-        ArrayList<Cliente> clientes = carregarClientes(); // Carrega os clientes atuais
+    public static void adicionarCliente(Cliente cliente) {
+        ArrayList<Cliente> clientes = lerClientes(); // Carrega os clientes atuais
         clientes.add(cliente); // Adiciona o novo cliente à lista
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
             for (Cliente c : clientes) {
@@ -102,7 +101,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
     }
 
     // Carregar Clientes do ficheiro
-    public static ArrayList<Cliente> carregarClientes() {
+    public static ArrayList<Cliente> lerClientes() {
         ArrayList<Cliente> clientes = new ArrayList<>();
         
         // Usando try-with-resources para garantir o fechamento do ObjectInputStream
@@ -142,13 +141,13 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
             System.out.print("Digite o ID do cliente para ser removido: ");
             int idCliente = myinputs.Ler.umInt(); 
             
-            ArrayList<Cliente> clientes = carregarClientes();
+            ArrayList<Cliente> clientes = lerClientes();
 
             boolean clienteRemovido = false;
 
             for (int i = 0; i < clientes.size(); i++) {
                 if (clientes.get(i).getIDCliente() == idCliente) {
-                    clientes.remove(i); // Remove o cliente da lista
+                    clientes.remove(i); 
                     clienteRemovido = true;
                     break;
                 }
@@ -156,12 +155,12 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
 
             // se clienteRemovido == true
             if (clienteRemovido) {
-                // Limpa o arquivo
+               
                 limparFicheiro();
 
                 // Volta a meter os clientes no arquivo
                 for (Cliente cliente : clientes) {
-                    salvarCliente(cliente);
+                    adicionarCliente(cliente);
                 }
 
                 System.out.println("Cliente removido com sucesso!");

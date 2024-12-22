@@ -1,9 +1,10 @@
 import java.util.ArrayList;
-
-public class Stock {
+import java.io.*;
+public class Stock implements Serializable{
     private ArrayList<Produto> catalogo;
     private ArrayList<Integer> quantidades;
-
+    private static final String FILENAME = "stock.dat"; //Ficheiro para salvar stock
+    
     public Stock() {
         this.catalogo = new ArrayList<>();
         this.quantidades = new ArrayList<>();
@@ -41,5 +42,23 @@ public class Stock {
             }
         }
         return false;
+    }
+    
+    public void salvarStock() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+            oos.writeObject(this);
+        } catch (IOException e) {
+            throw new LojaException("Erro ao salvar o estado do stock.", e);
+        }
+    }
+    public static Stock carregarStock() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
+            return (Stock) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Ficheiro de stock não encontrado. Um novo será criado.");
+            return new Stock();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new LojaException("Erro ao carregar o estado do stock.", e);
+        }
     }
 }

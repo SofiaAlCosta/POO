@@ -12,7 +12,9 @@ public class Loja {
                 System.out.println("1. Registrar Cliente");
                 System.out.println("2. Login");
                 System.out.println("3. Carregar e Mostrar Todos os Clientes");
-                System.out.println("4. Sair");
+                System.out.println("4. Limpar Ficheiro");
+                System.out.println("5. Remover Utilizador");
+                System.out.println("6. Sair");
                 System.out.print("Escolha uma opção: ");
                 int opcao = myinputs.Ler.umInt();
 
@@ -31,8 +33,14 @@ public class Loja {
                         }
                         break;
                     case 4:
-                        continuar = false;
+                    	Cliente.limparFicheiro();
                         break;
+                    case 5:
+                    	Cliente.removerCliente();
+                    	break;
+                    case 6:
+                    	continuar = false;
+                    	break;
                     default:
                         System.out.println("Opção inválida!");
                 }

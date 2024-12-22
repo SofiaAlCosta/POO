@@ -3,8 +3,7 @@ public class ProdutoRoupas extends Produto{
 	private String genero;
 	
 	public ProdutoRoupas(Produto p, String id, double preco, String tamanho, String genero, String marca) {
-		super(p.getIDProduto(), p.getNome(), p.getDescricao(), p.getPreco(), p.getQuantidadeStock(),
-	              p.getCategoria(), p.getDataInclusao(), p.isAtivo());
+		super(p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
 		this.tamanho = tamanho;
 		this.genero = genero;
 	}

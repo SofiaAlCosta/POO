@@ -9,7 +9,7 @@ public class Loja {
 
             while (continuar) {
                 System.out.println("\nMenu:");
-                System.out.println("1. Registrar Cliente");
+                System.out.println("1. Registar Cliente");
                 System.out.println("2. Login");
                 System.out.println("3. Carregar e Mostrar Todos os Clientes");
                 System.out.println("4. Limpar Ficheiro");

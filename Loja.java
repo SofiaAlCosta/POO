@@ -27,7 +27,7 @@ public class Loja {
                         break;
                     case 3:
                         ArrayList<Cliente> clientes = Cliente.lerClientes();
-                        System.out.println("Clientes registrados:");
+                        System.out.println("Clientes registados:");
                         for (Cliente c : clientes) {
                             System.out.println(c);
                         }

@@ -10,6 +10,29 @@ public class Stock implements Serializable{
         this.quantidades = new ArrayList<>();
     }
 
+    public ArrayList<ProdutoCaca> obterProdutosCaca(){
+        ArrayList<ProdutoCaca> produtosCaca = new ArrayList<>();
+
+        for (Produto produto : catalogo){
+            if(produto instanceof ProdutoCaca){
+                produtosCaca.add((ProdutoCaca) produto);
+            }
+        }
+
+        return produtosCaca;
+    }
+
+    public ArrayList<ProdutoPesca> obterProdutosPesca(){
+        ArrayList <ProdutoPesca> produtosPesca = new ArrayList<>();
+
+        for (Produto produto : catalogo) {
+            if (produto instanceof ProdutoPesca) {
+                produtosPesca.add((ProdutoPesca) produto);
+            }
+        }
+        return produtosPesca;
+    }
+
     public void adicionarProduto(Produto produto, int quantidadeInicial) {
         if (quantidadeInicial < 0) {
             throw new LojaException("Quantidade inicial não pode ser negativa.");

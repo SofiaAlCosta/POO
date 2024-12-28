@@ -5,14 +5,14 @@ import java.util.List;
 public class Cliente implements Serializable { //Serializable serve para salvar o arquivo como binário
     private int IDCliente;
     private String nome;
-    private String contacto;
+    private long contacto;
     private int NIF;
 
     private static int ultimoID = 0; 
     private static final String FILENAME = "clientes.dat"; // Arquivo binário para armazenar os clientes
 
     // Construtor
-    public Cliente(String nome, String contacto, int NIF) {
+    public Cliente(String nome, long contacto, int NIF) {
         this.IDCliente = ++ultimoID; // ID automático
         this.nome = nome;
         this.contacto = contacto;
@@ -22,12 +22,12 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
     // Getters
     public int getIDCliente() { return IDCliente; }
     public String getNome() { return nome; }
-    public String getContacto() { return contacto; }
+    public long getContacto() { return contacto; }
     public int getNIF() { return NIF; }
 
     // Setters
     public void setNome(String nome) { this.nome = nome; }
-    public void setContacto(String contacto) { this.contacto = contacto; }
+    public void setContacto(long contacto) { this.contacto = contacto; }
     public void setNIF(int NIF) { this.NIF = NIF; }
 
     @Override
@@ -47,7 +47,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
             String nome = myinputs.Ler.umaString();
 
             System.out.print("Contacto: ");
-            String contacto = myinputs.Ler.umaString();
+            long contacto = myinputs.Ler.umLong();
 
             System.out.print("NIF: ");
             int NIF = myinputs.Ler.umInt();

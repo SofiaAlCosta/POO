@@ -26,12 +26,13 @@ public class Loja {
                         Cliente clienteLogado = Cliente.login();
 
                         if (clienteLogado != null) {
-                            if ((clienteLogado.getNome().equals("Tiago") && clienteLogado.getContacto() == 1L && clienteLogado.getNIF() == 123)
-                                    || (clienteLogado.getNome().equals("Francisco") && clienteLogado.getContacto() == 2L && clienteLogado.getNIF() == 234)
+                            if ((clienteLogado.getNome().equals("Tiago") && clienteLogado.getContacto() == 912293655 && clienteLogado.getNIF() == 245386491)
+                                    || (clienteLogado.getNome().equals("Francisco") && clienteLogado.getContacto() == 918815254 && clienteLogado.getNIF() == 263594530)
                                     || (clienteLogado.getNome().equals("Hugo") && clienteLogado.getContacto() == 935929079 && clienteLogado.getNIF() == 255822243)
-                                    || (clienteLogado.getNome().equals("Sofia") && clienteLogado.getContacto() == 4L && clienteLogado.getNIF() == 456)) {
+                                    || (clienteLogado.getNome().equals("Sofia") && clienteLogado.getContacto() == 962196645 && clienteLogado.getNIF() == 246385391)) {
 
                                 System.out.println("Bem vindo, admin " + clienteLogado.getNome());
+                               
                                 boolean continuarAdmin = true;
 
                                 while (continuarAdmin) {

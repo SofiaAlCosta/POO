@@ -32,6 +32,18 @@ public class Stock implements Serializable{
         }
         return produtosPesca;
     }
+  
+    public ArrayList<ProdutoRoupas> obterProdutosRoupas(){
+        ArrayList<ProdutoRoupas> produtosRoupas = new ArrayList<>();
+
+        for (Produto produto : catalogo){
+            if(produto instanceof ProdutoRoupas){
+                produtosRoupas.add((ProdutoRoupas) produto);
+            }
+        }
+
+        return produtosRoupas;
+    }
 
     public void adicionarProduto(Produto produto, int quantidadeInicial) {
         if (quantidadeInicial < 0) {

@@ -1,10 +1,14 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID; // biblioteca para gerar ID's universais de 36 caracteres
+import java.util.UUID;
 
 public class Vendas {
     private String idVenda;
     private LocalDateTime dataVenda;
+
+    private Cliente cliente;
+    private ArrayList<Produto> produtos;
+    private ArrayList<Integer> quantidades;
 
     private int numVendasAdmin;
     private double lucroVendas;
@@ -12,32 +16,23 @@ public class Vendas {
     private int numComprasCliente;
     private double valorGastoCliente;
 
-    private ArrayList<Produto> carrinho;
-    private ArrayList<Integer> quantidades;
-
-    // Construtores
-
-    //construtor de inicializaçao básico
-    public Vendas() {
+    public Vendas(Cliente cliente) {
         this.idVenda = UUID.randomUUID().toString();
         this.dataVenda = LocalDateTime.now();
+        this.cliente = cliente;
+        this.produtos = new ArrayList<>();
+        this.quantidades = new ArrayList<>();
         this.numVendasAdmin = 0;
         this.lucroVendas = 0.0;
         this.numComprasCliente = 0;
         this.valorGastoCliente = 0.0;
-        this.carrinho = new ArrayList<>();
-        this.quantidades = new ArrayList<>();
     }
 
-    public Vendas(int numVendasAdmin, double lucroVendas, int numComprasCliente, double valorGastoCliente) {
-        this();//vai chamar o construtor sem parâmetros, inicializando os valores padrão e depois sobreescrevendo
-        this.numVendasAdmin = numVendasAdmin;
-        this.lucroVendas = lucroVendas;
-        this.numComprasCliente = numComprasCliente;
-        this.valorGastoCliente = valorGastoCliente;
+    public Vendas() {
+        this(null); 
     }
 
-    // Getters e setters
+ 
     public String getIdVenda() {
         return idVenda;
     }
@@ -46,83 +41,74 @@ public class Vendas {
         return dataVenda;
     }
 
-    public int getNumVendasAdmin() {
-        return numVendasAdmin;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setNumVendasAdmin(int numVendasAdmin) {
-        this.numVendasAdmin = numVendasAdmin;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getNumVendasAdmin() {
+        return numVendasAdmin;
     }
 
     public double getLucroVendas() {
         return lucroVendas;
     }
 
-    public void setLucroVendas(double lucroVendas) {
-        this.lucroVendas = lucroVendas;
-    }
-
     public int getNumComprasCliente() {
         return numComprasCliente;
-    }
-
-    public void setNumComprasCliente(int numComprasCliente) {
-        this.numComprasCliente = numComprasCliente;
     }
 
     public double getValorGastoCliente() {
         return valorGastoCliente;
     }
 
-    public void setValorGastoCliente(double valorGastoCliente) {
-        this.valorGastoCliente = valorGastoCliente;
-    }
-
-    // Métodos para o Carrinho de Compras
     public void adicionarProdutoAoCarrinho(Produto produto, int quantidade) {
         if (quantidade <= 0) {
-            throw new IllegalArgumentException("A quantidade deve ser positiva.");
+            throw new LojaException("A quantidade deve ser positiva.");
         }
-        int index = carrinho.indexOf(produto);
-        if (index >= 0) {
-            quantidades.set(index, quantidades.get(index) + quantidade); //vai buscar quantidades à classe stock, para verificar se há stock de determinado produto antes de o adicionar ao carrinho. caso n haja, throws exception
+
+        int index = produtos.indexOf(produto);
+        if (index >= 0) { 
+            quantidades.set(index, quantidades.get(index) + quantidade);
         } else {
-            carrinho.add(produto);
+            produtos.add(produto);
             quantidades.add(quantidade);
         }
     }
-
-    public void removerProdutoDoCarrinho(Produto produto) {
-        int index = carrinho.indexOf(produto);
-        if (index >= 0) {
-            carrinho.remove(index);
-            quantidades.remove(index);
-        } else {
-            throw new IllegalArgumentException("Produto não está no carrinho.");
-        }
-    }
-
     public void exibirCarrinho() {
+        if (produtos.isEmpty()) {
+            System.out.println("O carrinho está vazio.");
+            return;
+        }
+
         System.out.println("Carrinho de Compras:");
-        for (int i = 0; i < carrinho.size(); i++) {
-            Produto produto = carrinho.get(i);
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
             int quantidade = quantidades.get(i);
             System.out.printf("- %s (Quantidade: %d, Preço Unitário: %.2f)\n",
                     produto.getNome(), quantidade, produto.getPreco());
         }
     }
 
-    // Métodos para Fatura
+    public boolean isCarrinhoVazio() {
+        return produtos.isEmpty();
+    }
+
+ 
     public String gerarFatura() {
-        StringBuilder fatura = new StringBuilder(); //utilização do string builder para uma questão de gestão de texto. É mais fácil ir adicionando texto do que com concatenação de strings
+        StringBuilder fatura = new StringBuilder();
         fatura.append("=== Fatura ===\n");
         fatura.append("ID da Venda: ").append(idVenda).append("\n");
         fatura.append("Data: ").append(dataVenda).append("\n\n");
+        fatura.append("Cliente: ").append(cliente.getNome()).append("\n\n");
         fatura.append("Produtos:\n");
 
         double total = 0.0;
-        for (int i = 0; i < carrinho.size(); i++) {
-            Produto produto = carrinho.get(i);
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
             int quantidade = quantidades.get(i);
             double subtotal = produto.getPreco() * quantidade;
             total += subtotal;
@@ -135,15 +121,15 @@ public class Vendas {
 
     public double calcularTotalVenda() {
         double total = 0.0;
-        for (int i = 0; i < carrinho.size(); i++) {
-            Produto produto = carrinho.get(i);
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
             int quantidade = quantidades.get(i);
             total += produto.getPreco() * quantidade;
         }
         return total;
     }
 
-    // Finalizar Venda
+  
     public void finalizarVenda() {
         double totalVenda = calcularTotalVenda();
         this.lucroVendas += totalVenda;
@@ -151,8 +137,16 @@ public class Vendas {
         this.numComprasCliente++;
         this.valorGastoCliente += totalVenda;
 
-        // Limpar carrinho após a venda
-        carrinho.clear();
+     
+        produtos.clear();
         quantidades.clear();
+    }
+
+    public ArrayList<Produto> getProdutos() {
+        return produtos; 
+    }
+
+    public ArrayList<Integer> getQuantidades() {
+        return quantidades; 
     }
 }

@@ -15,7 +15,7 @@ public class Stock implements Serializable{
 
     public void setCatalogo(ArrayList<Produto> catalogo) {
         if (catalogo == null) {
-            throw new IllegalArgumentException("O catálogo não pode ser nulo.");
+            throw new LojaException("O catálogo não pode ser nulo.");
         }
         this.catalogo = catalogo;
     }

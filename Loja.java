@@ -422,7 +422,7 @@ public class Loja {
                         System.out.println("Opção inválida!");
                 }
             }
-        } catch (Exception e) {
+        } catch (LojaException e) {
             System.out.println("Erro no programa: " + e.getMessage());
         }
     }

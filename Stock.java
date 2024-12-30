@@ -45,6 +45,8 @@ public class Stock implements Serializable{
         return produtosRoupas;
     }
 
+
+
     public void adicionarProduto(Produto produto, int quantidadeInicial) {
         if (quantidadeInicial < 0) {
             throw new LojaException("Quantidade inicial não pode ser negativa.");

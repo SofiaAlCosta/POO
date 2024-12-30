@@ -3,11 +3,21 @@ import java.io.*;
 public class Stock implements Serializable{
     private ArrayList<Produto> catalogo;
     private ArrayList<Integer> quantidades;
-    private static final String FILENAME = "stock.dat"; //Ficheiro para salvar stock
+    private static final String FILENAME = "stock.dat";
     
     public Stock() {
         this.catalogo = new ArrayList<>();
         this.quantidades = new ArrayList<>();
+    }
+    public ArrayList<Produto> getCatalogo() {
+        return catalogo;
+    }
+
+    public void setCatalogo(ArrayList<Produto> catalogo) {
+        if (catalogo == null) {
+            throw new IllegalArgumentException("O catálogo não pode ser nulo.");
+        }
+        this.catalogo = catalogo;
     }
 
     public ArrayList<ProdutoCaca> obterProdutosCaca(){
@@ -44,9 +54,6 @@ public class Stock implements Serializable{
 
         return produtosRoupas;
     }
-
-
-
     public void adicionarProduto(Produto produto, int quantidadeInicial) {
         if (quantidadeInicial < 0) {
             throw new LojaException("Quantidade inicial não pode ser negativa.");
@@ -73,33 +80,32 @@ public class Stock implements Serializable{
     }
 
     public boolean isDisponivel(int IDProduto) {
-        for (int i = 0; i < catalogo.size(); i++) {
-            if (catalogo.get(i).getIDProduto() == IDProduto) {
-                return quantidades.get(i) > 0;
-            }
+        try {
+            int quantidade = getQuantidade(IDProduto); 
+            return quantidade > 0; 
+        } catch (LojaException e) {
+            return false; 
         }
-        return false;
     }
     
     public void salvarStock() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
             oos.writeObject(this);
         } catch (IOException e) {
-            throw new LojaException("Erro ao salvar o estado do stock.", e);
+            throw new LojaException("Erro ao salvar o stock.", e);
         }
     }
-    //ler o ficheiro
     public static Stock lerStock() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
-            return (Stock) ois.readObject();
+            return (Stock) ois.readObject(); 
         } catch (FileNotFoundException e) {
             System.out.println("Ficheiro de stock não encontrado. Um novo será criado.");
-            return new Stock();
+            return new Stock(); 
         } catch (IOException | ClassNotFoundException e) {
-            throw new LojaException("Erro ao carregar o estado do stock.", e);
+            throw new LojaException("Erro ao carregar o stock.", e);
         }
     }
-    
+     
     public void mostrarStock() {
         System.out.println("Estado atual do stock:");
         for (int i = 0; i < catalogo.size(); i++) {
@@ -108,4 +114,13 @@ public class Stock implements Serializable{
             System.out.println(produto + "\n  Quantidade: " + quantidade);
         }
     }
+    public int getQuantidade(int IDProduto) {
+        for (int i = 0; i < catalogo.size(); i++) {
+            if (catalogo.get(i).getIDProduto() == IDProduto) {
+                return quantidades.get(i);
+            }
+        }
+        throw new LojaException("Produto não encontrado no stock.");
+    }
+
 }

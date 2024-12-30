@@ -1,5 +1,5 @@
 public class ProdutoCaca extends Produto {
-    private String paisOrigem;
+	private String paisOrigem;
     public double alcanceMaximo;
     private double peso;
     private String material;
@@ -94,15 +94,18 @@ public class ProdutoCaca extends Produto {
 	}
 
 	@Override
-    public String toString() {
-        return super.toString() + "\n" +
-               "  País de Origem: " + paisOrigem + "\n" +
-               "  Peso: " + peso + " kg\n" +
-               "  Material: " + material + "\n" +
-               "  Requisitos de Licença: " + requisitosLicenca + "\n" +
-               "  Garantia: " + garantia + " meses";
-    }
-    
+	public String toString() {
+	    return super.toString() + "\n" + 
+	           "  País de Origem: " + paisOrigem + "\n" +
+	           "  Alcance Máximo: " + alcanceMaximo + " metros\n" +
+	           "  Peso: " + peso + " kg\n" +
+	           "  Material: " + material + "\n" +
+	           "  Requisitos de Licença: " + requisitosLicenca + "\n" +
+	           "  Garantia: " + garantia + " meses\n" +
+	           "  Resistência à Água: " + resistenciaAgua + "\n" +
+	           "  Nível de Segurança: " + nivelSeguranca;
+	}
+	
     @Override
     public boolean equals(Object obj) {
         if (obj != null && this.getClass() == obj.getClass()) {

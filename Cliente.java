@@ -2,16 +2,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente implements Serializable { //Serializable serve para salvar o arquivo como binário
+public class Cliente implements Serializable { 
     private int IDCliente;
     private String nome;
     private long contacto;
     private int NIF;
 
     private static int ultimoID = 0; 
-    private static final String FILENAME = "clientes.dat"; // Arquivo binário para armazenar os clientes
+    private static final String FILENAME = "clientes.dat";
 
-    // Construtor
     public Cliente(String nome, long contacto, int NIF) {
         this.IDCliente = ++ultimoID; // ID automático
         this.nome = nome;
@@ -19,13 +18,11 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
         this.NIF = NIF;
     }
 
-    // Getters
     public int getIDCliente() { return IDCliente; }
     public String getNome() { return nome; }
     public long getContacto() { return contacto; }
     public int getNIF() { return NIF; }
 
-    // Setters
     public void setNome(String nome) { this.nome = nome; }
     public void setContacto(long contacto) { this.contacto = contacto; }
     public void setNIF(int NIF) { this.NIF = NIF; }
@@ -40,7 +37,6 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
                 '}';
     }
 
-    // Método para registar um novo Cliente
     public static void registar() {
         try {
             System.out.print("Nome: ");
@@ -64,7 +60,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
         }
     }
 
-    // Método para Login
+
     public static Cliente login() {
         try {
             System.out.print("Nome: ");
@@ -75,7 +71,7 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
 
             List<Cliente> clientes = lerClientes(); 
             for (Cliente c : clientes) {
-                if (c.getNome().equals(nome) && c.getNIF() == NIF) { //se for igual ao que tiver no ficheiro binário
+                if (c.getNome().equals(nome) && c.getNIF() == NIF) {
                     System.out.println("Login bem-sucedido! Bem-vindo, " + c.getNome()); //login
                     return c;
                 }
@@ -89,32 +85,27 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
     }
 
     public static void adicionarCliente(Cliente cliente) {
-        ArrayList<Cliente> clientes = lerClientes(); // Carrega os clientes atuais
-        clientes.add(cliente); // Adiciona o novo cliente à lista
+        ArrayList<Cliente> clientes = lerClientes(); 
+        clientes.add(cliente); 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
             for (Cliente c : clientes) {
-                oos.writeObject(c); // Salva todos os clientes no arquivo binário
+                oos.writeObject(c); 
             }
         } catch (IOException e) {
             throw new LojaException("Erro ao salvar cliente.", e);
         }
     }
 
-    // Carregar Clientes do ficheiro
     public static ArrayList<Cliente> lerClientes() {
         ArrayList<Cliente> clientes = new ArrayList<>();
         
-        // Usando try-with-resources para garantir o fechamento do ObjectInputStream
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
             Cliente cliente;
-            // Tentamos ler objetos até o final do arquivo
             while (true) {
                 try {
-                    // Lê um objeto Cliente
                     cliente = (Cliente) ois.readObject();
                     clientes.add(cliente);
                 } catch (EOFException e) {
-                    // EOFException é esperada quando o arquivo chega ao final
                     break;
                 }
             }
@@ -130,7 +121,6 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
     }
     public static void limparFicheiro() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
-            // Só cria um ficheiro vazio
         } catch (IOException e) {
             System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
         }
@@ -153,12 +143,11 @@ public class Cliente implements Serializable { //Serializable serve para salvar 
                 }
             }
 
-            // se clienteRemovido == true
             if (clienteRemovido) {
                
                 limparFicheiro();
 
-                // Volta a meter os clientes no arquivo
+               
                 for (Cliente cliente : clientes) {
                     adicionarCliente(cliente);
                 }

@@ -9,7 +9,7 @@ public class Produto implements Serializable {
 	private boolean ativo;
 	private static int ultimo = 0;
 	
-	public Produto() {  //Construtor Vazio
+	public Produto() {  
         this.IDProduto = ++ultimo; 
         this.nome = "";
         this.descricao = "";
@@ -18,7 +18,7 @@ public class Produto implements Serializable {
         this.ativo = true;
     }
 
-	public Produto(String nome) { //Construtor só com o nome
+	public Produto(String nome) {
 		this.IDProduto = ++ultimo;
 		this.nome = nome;
 		
@@ -28,7 +28,7 @@ public class Produto implements Serializable {
         this.ativo = true;
 	}
 	public Produto(String nome, String descricao, double preco, 
-            String categoria, boolean ativo) { //Construtor completo
+            String categoria, boolean ativo) { 
 		this.IDProduto = ++ultimo;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -42,6 +42,17 @@ public class Produto implements Serializable {
 	public void setIDProduto(int IDProduto) {
 		this.IDProduto = IDProduto;
 	}
+	
+	public static int getUltimoID() {
+	    return ultimo;
+	}
+
+	public static void setUltimoID(int novoUltimoID) {
+	    if (novoUltimoID > ultimo) {
+	        ultimo = novoUltimoID;
+	    }
+	}
+	
 	public String getNome() {
 		return nome;
 	}

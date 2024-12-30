@@ -3,9 +3,10 @@ import java.util.ArrayList;
 public class Loja {
 
     public static void main(String[] args) {
-        // Simula um menu de opções para o usuário
-        Stock stock = new Stock();
-
+       
+        Stock stock = Stock.lerStock();
+        Vendas vendaAtual = null;
+        
         try {
             boolean continuar = true;
 
@@ -34,7 +35,6 @@ public class Loja {
                         System.out.print("NIF: ");
                         int nif = myinputs.Ler.umInt();
 
-                        // Verificar se o login é de um admin
                         if ((nome.equals("Tiago") && contacto == 912293655 && nif == 245386491) ||
                                 (nome.equals("Francisco") && contacto == 918815254 && nif == 263594530) ||
                                 (nome.equals("Hugo") && contacto == 935929079 && nif == 255822243) ||
@@ -51,7 +51,7 @@ public class Loja {
                                 System.out.println("3: Remover Utilizador");
                                 System.out.println("4: Voltar ao Menu Inicial");
                                 System.out.println("5: Sair");
-                                System.out.println("------- gestao de stock -------");
+                                System.out.println("------- Gestão de stock -------");
                                 System.out.println("6: Adicionar produto de Caça ao stock");
                                 System.out.println("7: Adicionar produto de Pesca ao stock");
                                 System.out.println("8: Adicionar Roupas ao stock");
@@ -89,7 +89,6 @@ public class Loja {
                                     case 6:
                                         System.out.println("Adicionar Produto de Caça");
 
-                                        // Coletando informações básicas do produto
                                         System.out.print("Nome: ");
                                         String nomeCaca = myinputs.Ler.umaString();
 
@@ -100,12 +99,11 @@ public class Loja {
                                         double precoCaca = myinputs.Ler.umDouble();
 
                                         System.out.print("Categoria (fixado como 'Caça'): ");
-                                        String categoriaCaca = "Caça"; // Categoria predefinida
+                                        String categoriaCaca = "Caça"; 
 
                                         System.out.print("Ativo (true/false): ");
                                         boolean ativoCaca = myinputs.Ler.umBoolean();
 
-                                        // Coletando informações específicas do ProdutoCaca
                                         System.out.print("País de Origem: ");
                                         String paisOrigem = myinputs.Ler.umaString();
 
@@ -132,14 +130,10 @@ public class Loja {
 
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicial = myinputs.Ler.umInt();
-
-                                        // Criando o produto base
                                         Produto produtoBaseCaca = new Produto(nomeCaca, descricaoCaca, precoCaca, categoriaCaca, ativoCaca);
 
-                                        // Criando o produto de caça com base no produto base
                                         ProdutoCaca produtoCaca = new ProdutoCaca(produtoBaseCaca, paisOrigem, alcanceMaximo, pesoCaca, materialCaca, requisitosLicenca, garantiaCaca, resistenciaAgua, nivelSeguranca);
 
-                                        // Adicionando ao estoque
                                         stock.adicionarProduto(produtoCaca, quantidadeInicial); // vai já com a quantidade inicial
                                         stock.salvarStock();
 
@@ -159,12 +153,11 @@ public class Loja {
                                         double precoPesca = myinputs.Ler.umDouble();
 
                                         System.out.print("Categoria (fixado como 'Pesca'): ");
-                                        String categoriaPesca = "Pesca"; // Categoria predefinida
+                                        String categoriaPesca = "Pesca";
 
                                         System.out.print("Ativo (true/false): ");
                                         boolean ativoPesca = myinputs.Ler.umBoolean();
-
-                                        // Coletando informações específicas do ProdutoPesca
+                          
                                         System.out.print("Tipo de Equipamento: ");
                                         String tipoEquipamento = myinputs.Ler.umaString();
 
@@ -185,15 +178,12 @@ public class Loja {
 
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicialPesca = myinputs.Ler.umInt();
-
-                                        // Criando o produto base
+                           
                                         Produto produtoBasePesca = new Produto(nomePesca, descricaoPesca, precoPesca, categoriaPesca, ativoPesca);
 
-                                        // Criando o produto de pesca com base no produto base
                                         ProdutoPesca produtoPesca = new ProdutoPesca(produtoBasePesca, tipoEquipamento, materialPesca, pesoPesca, tamanhoPesca, paisOrigemPesca, garantiaPesca);
-
-                                        // Adicionando ao estoque
-                                        stock.adicionarProduto(produtoPesca, quantidadeInicialPesca); // vai já com a quantidade inicial
+                     
+                                        stock.adicionarProduto(produtoPesca, quantidadeInicialPesca); 
                                         stock.salvarStock();
 
                                         System.out.println("Produto de Pesca adicionado com sucesso!");
@@ -212,28 +202,26 @@ public class Loja {
                                         double precoRoupa = myinputs.Ler.umDouble();
 
                                         System.out.print("Categoria (fixado como 'Roupa'): ");
-                                        String categoriaRoupa = "Roupa"; // Categoria predefinida
-
+                                        String categoriaRoupa = "Roupa"; 
+                                        
                                         System.out.print("Ativo (true/false): ");
                                         boolean ativoRoupa = myinputs.Ler.umBoolean();
-
-                                        // Coletando informações específicas do ProdutoRoupas
+           
                                         System.out.print("Tamanho (P/M/G/Outro): ");
                                         String tamanhoRoupa = myinputs.Ler.umaString();
 
-                                        System.out.print("Gênero (Masculino/Feminino/Unissex): ");
+                                        System.out.print("Género (Masculino/Feminino/Unissex): ");
                                         String generoRoupa = myinputs.Ler.umaString();
 
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicialRoupa = myinputs.Ler.umInt();
 
-                                        // Criando o produto base
+                                        
                                         Produto produtoBaseRoupa = new Produto(nomeRoupa, descricaoRoupa, precoRoupa, categoriaRoupa, ativoRoupa);
+     
+                                        ProdutoRoupas produtoRoupa = new ProdutoRoupas(produtoBaseRoupa, null, precoRoupa, tamanhoRoupa, generoRoupa);
 
-                                        // Criando o produto de roupa com base no produto base
-                                        ProdutoRoupas produtoRoupa = new ProdutoRoupas(produtoBaseRoupa, null, precoRoupa, tamanhoRoupa, generoRoupa, null);
-
-                                        // Adicionando ao estoque
+                                      
                                         stock.adicionarProduto(produtoRoupa, quantidadeInicialRoupa); // vai já com a quantidade inicial
                                         stock.salvarStock();
 
@@ -249,7 +237,7 @@ public class Loja {
                                 }
                             }
                         } else {
-                            // Não é admin, verificar como cliente
+                           
                             Cliente clienteLogado = Cliente.login();
 
                             if (clienteLogado != null) {
@@ -263,8 +251,10 @@ public class Loja {
                                     System.out.println("3: Ver produtos de Roupa");
                                     System.out.println("4: Ver Carrinho de compras");
                                     System.out.println("5: Remover conta");
-                                    System.out.println("6: Voltar ao Menu Inicial");
-                                    System.out.println("7: Sair");
+                                    System.out.println("6: Adicionar ao Carrinho");
+                                    System.out.println("7: Finalizar compra");
+                                    System.out.println("8: Voltar ao Menu Inicial");
+                                    System.out.println("9: Sair");
                                     System.out.print("Escolha uma opção: ");
 
                                     int opcaoCliente = myinputs.Ler.umInt();
@@ -313,19 +303,105 @@ public class Loja {
                                             break;
 
                                         case 4:
-                                            Vendas vendas = new Vendas();
-                                            vendas.exibirCarrinho();
+                                        	if (vendaAtual == null || vendaAtual.isCarrinhoVazio()) {
+                                                System.out.println("O carrinho está vazio.");
+                                            } else {
+                                                vendaAtual.exibirCarrinho();
+                                            }
                                             break;
 
                                         case 5:
                                             Cliente.removerCliente();
                                             break;
+                                      
+                                        case 6: 
+                                            if (vendaAtual == null) {
+                                                vendaAtual = new Vendas(clienteLogado); // Inicializa o carrinho para o cliente
+                                            }
 
-                                        case 6:
+                                            boolean continuarAdicionando = true;
+
+                                            while (continuarAdicionando) {
+                                                System.out.println("\nProdutos disponíveis:");
+                                                stock.mostrarStock();
+
+                                                System.out.println("Digite o ID do produto que deseja adicionar ao carrinho ou 0 para voltar:");
+                                                int idProduto = Ler.umInt();
+
+                                                if (idProduto == 0) {
+                                                    break; 
+                                                }
+
+                                                Produto produtoEscolhido = null;
+
+                                                for (Produto produto : stock.lerStock().getCatalogo()) {
+                                                    if (produto.getIDProduto() == idProduto) {
+                                                        produtoEscolhido = produto;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (produtoEscolhido == null) {
+                                                    System.out.println("Produto não encontrado. Tente novamente.");
+                                                    continue;
+                                                }
+
+                                                System.out.print("Quantidade: ");
+                                                int quantidade = Ler.umInt();
+
+                                                if (!stock.isDisponivel(idProduto) || quantidade > stock.getQuantidade(idProduto)) {
+                                                    System.out.println("Quantidade indisponível em stock.");
+                                                    continue;
+                                                }
+
+                                            
+                                                vendaAtual.adicionarProdutoAoCarrinho(produtoEscolhido, quantidade);
+                                                System.out.println("Produto adicionado ao carrinho!");
+
+                                                System.out.print("Deseja continuar adicionando produtos? (true/false): ");
+                                                continuarAdicionando = Ler.umBoolean();
+                                            }
+                                            break;
+
+                                        case 7: 
+                                            if (vendaAtual == null || vendaAtual.isCarrinhoVazio()) {
+                                                System.out.println("O carrinho está vazio. Adicione produtos antes de finalizar a compra.");
+                                                break;
+                                            }
+
+                                            vendaAtual.exibirCarrinho();
+
+                                            System.out.print("Deseja finalizar a compra? (true/false): ");
+                                            if (Ler.umBoolean()) {
+                                                for (int i = 0; i < vendaAtual.getProdutos().size(); i++) {
+                                                    Produto produto = vendaAtual.getProdutos().get(i);
+                                                    int quantidade = vendaAtual.getQuantidades().get(i);
+
+                                                    stock.atualizarStock(produto.getIDProduto(), -quantidade);
+                                                }
+
+                                               
+                                                System.out.println("Gerando fatura:");
+                                                System.out.println(vendaAtual.gerarFatura());
+                                                vendaAtual.finalizarVenda();
+
+                                               
+                                                stock.salvarStock();
+
+                                                System.out.println("Compra finalizada com sucesso!");
+
+                                                // Limpar a venda atual
+                                                vendaAtual = null;
+                                            } else {
+                                                System.out.println("Compra cancelada.");
+                                            }
+                                            break;
+
+                                        case 8:
                                             continuarCliente = false;
                                             break;
 
-                                        case 7:
+                                        case 9:
                                             continuar = false;
                                             continuarCliente = false;
                                             break;

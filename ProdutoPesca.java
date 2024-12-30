@@ -113,7 +113,7 @@ public class ProdutoPesca extends Produto{
                 "  Tipo De Equipamento: " + tipoEquipamento + "\n" +
                 "  Material: " + material + "\n" +
                 "  Peso: " + peso + " kg\n" +
-                "  Tamanho: " + tamanho + "\n" +
+                "  Tamanho: " + tamanho + "cm\n" +
                 "  Pais de Origem: " + paisOrigem + "\n" +
                 "  Garantia: " + garantia + " meses";
      }

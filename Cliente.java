@@ -69,11 +69,21 @@ public class Cliente implements Serializable {
             System.out.print("NIF: ");
             int NIF = myinputs.Ler.umInt();
 
+            // Verificar se é um admin
+            if ((nome.equals("Tiago") && NIF == 245386491) ||
+                (nome.equals("Francisco") && NIF == 263594530) ||
+                (nome.equals("Hugo") && NIF == 255822243) ||
+                (nome.equals("Sofia") && NIF == 246385391)) {
+                System.out.println("Login como administrador bem-sucedido! Bem-vindo, Admin " + nome);
+                return null; // Admins retornam null
+            }
+
+            // Verificar se é um cliente normal
             List<Cliente> clientes = lerClientes(); 
             for (Cliente c : clientes) {
                 if (c.getNome().equals(nome) && c.getNIF() == NIF) {
-                    System.out.println("Login bem-sucedido! Bem-vindo, " + c.getNome()); //login
-                    return c;
+                    System.out.println("Login bem-sucedido! Bem-vindo, " + c.getNome());
+                    return c; // Retorna o cliente logado
                 }
             }
 
@@ -83,6 +93,7 @@ public class Cliente implements Serializable {
         }
         return null;
     }
+
 
     public static void adicionarCliente(Cliente cliente) {
         ArrayList<Cliente> clientes = lerClientes(); 

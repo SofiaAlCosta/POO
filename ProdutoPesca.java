@@ -8,7 +8,7 @@ public class ProdutoPesca extends Produto{
 	
 	public ProdutoPesca(Produto p, String tipoEquipamento, String material, double peso, int tamanho, String paisOrigem, int garantia)
 	{
-		super(p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
+		super(p.getIDProduto(), p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
 		this.tipoEquipamento = tipoEquipamento;
 		this.material = material;
 		this.peso = peso;

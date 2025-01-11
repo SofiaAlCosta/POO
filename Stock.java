@@ -58,9 +58,15 @@ public class Stock implements Serializable{
         if (quantidadeInicial < 0) {
             throw new LojaException("Quantidade inicial não pode ser negativa.");
         }
+        for (Produto p : catalogo) {
+            if (p.getIDProduto() == produto.getIDProduto()) {
+                throw new LojaException("Produto já existe no catálogo com ID duplicado: " + produto.getIDProduto());
+            }
+        }
         if (catalogo.contains(produto)) {
             throw new LojaException("Produto já existe no catálogo.");
         }
+        System.out.println("[DEBUG] Adicionando Produto ao catálogo. ID: " + produto.getIDProduto());
         catalogo.add(produto);
         quantidades.add(quantidadeInicial);
     }
@@ -97,14 +103,27 @@ public class Stock implements Serializable{
     }
     public static Stock lerStock() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
-            return (Stock) ois.readObject(); 
+            Stock stock = (Stock) ois.readObject();
+
+            // Garantir que o último ID seja atualizado corretamente
+            int maiorID = 0;
+            for (Produto produto : stock.getCatalogo()) {
+                if (produto.getIDProduto() > maiorID) {
+                    maiorID = produto.getIDProduto();
+                }
+            }
+            Produto.setUltimoID(maiorID);
+            System.out.println("[DEBUG] Maior ID carregado do ficheiro: " + maiorID);
+
+            return stock;
         } catch (FileNotFoundException e) {
-            System.out.println("Ficheiro de stock não encontrado. Um novo será criado.");
-            return new Stock(); 
+            System.out.println("[DEBUG] Ficheiro de stock não encontrado. Criando novo.");
+            return new Stock();
         } catch (IOException | ClassNotFoundException e) {
             throw new LojaException("Erro ao carregar o stock.", e);
         }
     }
+
      
     public void mostrarStock() {
         System.out.println("Estado atual do stock:");

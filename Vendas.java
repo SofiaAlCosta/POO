@@ -149,6 +149,13 @@ public class Vendas implements Serializable{
         }
     }
 
+    
+    public static void limparVendas() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+        } catch (IOException e) {
+            System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
+        }
+    }
     public void finalizarVenda() {
         double totalVenda = calcularTotalVenda();
         this.lucroVendas += totalVenda;

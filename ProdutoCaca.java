@@ -10,7 +10,7 @@ public class ProdutoCaca extends Produto {
 
     public ProdutoCaca(Produto p,String paisOrigem, double alcanceMaximo,  double peso, String material,
     		boolean requisitosLicenca, int garantia, boolean resistenciaAgua, String nivelSeguranca) {
-        super(p.getNome(), p.getDescricao(), p.getPreco(),p.getCategoria(), p.getAtivo());
+        super(p.getIDProduto(),p.getNome(), p.getDescricao(), p.getPreco(),p.getCategoria(), p.getAtivo());
         this.alcanceMaximo = alcanceMaximo; 
         this.paisOrigem = paisOrigem;
         this.peso = peso;

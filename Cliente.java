@@ -130,7 +130,7 @@ public class Cliente implements Serializable {
         
         return clientes;
     }
-    public static void limparFicheiro() {
+    public static void limparClientes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
         } catch (IOException e) {
             System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
@@ -156,7 +156,7 @@ public class Cliente implements Serializable {
 
             if (clienteRemovido) {
                
-                limparFicheiro();
+                limparClientes();
 
                
                 for (Cliente cliente : clientes) {

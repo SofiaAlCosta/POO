@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
 public class Produto implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int IDProduto;
 	private String nome;
 	private String descricao;
@@ -10,7 +11,8 @@ public class Produto implements Serializable {
 	private static int ultimo = 0;
 	
 	public Produto() {  
-        this.IDProduto = ++ultimo; 
+		
+	    this.IDProduto = ++ultimo;
         this.nome = "";
         this.descricao = "";
         this.preco = 0.0;
@@ -19,7 +21,8 @@ public class Produto implements Serializable {
     }
 
 	public Produto(String nome) {
-		this.IDProduto = ++ultimo;
+	    this.IDProduto = ++ultimo;
+	    
 		this.nome = nome;
 		
 		this.descricao= "";
@@ -29,13 +32,21 @@ public class Produto implements Serializable {
 	}
 	public Produto(String nome, String descricao, double preco, 
             String categoria, boolean ativo) { 
-		this.IDProduto = ++ultimo;
+	    this.IDProduto = ++ultimo;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.ativo = ativo;
 }
+	public Produto(int IDProduto, String nome, String descricao, double preco, String categoria, boolean ativo) {
+	    this.IDProduto = IDProduto; // Reutiliza o ID fornecido
+	    this.nome = nome;
+	    this.descricao = descricao;
+	    this.preco = preco;
+	    this.categoria = categoria;
+	    this.ativo = ativo;
+	}
 	public int getIDProduto() {
 		return IDProduto;
 	}

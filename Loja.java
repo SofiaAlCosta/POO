@@ -59,7 +59,7 @@ public class Loja {
                                         break;
 
                                     case 2:
-                                        Cliente.limparFicheiro();
+                                        Cliente.limparClientes();
                                         break;
 
                                     case 3:
@@ -119,9 +119,8 @@ public class Loja {
 
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicial = myinputs.Ler.umInt();
-                                        Produto produtoBaseCaca = new Produto(nomeCaca, descricaoCaca, precoCaca, categoriaCaca, ativoCaca);
 
-                                        ProdutoCaca produtoCaca = new ProdutoCaca(produtoBaseCaca, paisOrigem, alcanceMaximo, pesoCaca, materialCaca, requisitosLicenca, garantiaCaca, resistenciaAgua, nivelSeguranca);
+                                        ProdutoCaca produtoCaca = new ProdutoCaca(new Produto(nomeCaca, descricaoCaca, precoCaca, categoriaCaca, ativoCaca), paisOrigem, alcanceMaximo, pesoCaca, materialCaca, requisitosLicenca, garantiaCaca, resistenciaAgua, nivelSeguranca);
 
                                         stock.adicionarProduto(produtoCaca, quantidadeInicial); // vai já com a quantidade inicial
                                         stock.salvarStock();
@@ -167,10 +166,8 @@ public class Loja {
 
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicialPesca = myinputs.Ler.umInt();
-                           
-                                        Produto produtoBasePesca = new Produto(nomePesca, descricaoPesca, precoPesca, categoriaPesca, ativoPesca);
 
-                                        ProdutoPesca produtoPesca = new ProdutoPesca(produtoBasePesca, tipoEquipamento, materialPesca, pesoPesca, tamanhoPesca, paisOrigemPesca, garantiaPesca);
+                                        ProdutoPesca produtoPesca = new ProdutoPesca(new Produto(nomePesca, descricaoPesca, precoPesca, categoriaPesca, ativoPesca), tipoEquipamento, materialPesca, pesoPesca, tamanhoPesca, paisOrigemPesca, garantiaPesca);
                      
                                         stock.adicionarProduto(produtoPesca, quantidadeInicialPesca); 
                                         stock.salvarStock();
@@ -205,12 +202,12 @@ public class Loja {
                                         System.out.println("Quantidade inicial de unidades: ");
                                         int quantidadeInicialRoupa = myinputs.Ler.umInt();
 
+                                        Produto produtobaseroupa = new Produto(nomeRoupa, descricaoRoupa, precoRoupa, categoriaRoupa, ativoRoupa);
                                         
-                                        Produto produtoBaseRoupa = new Produto(nomeRoupa, descricaoRoupa, precoRoupa, categoriaRoupa, ativoRoupa);
-     
-                                        ProdutoRoupas produtoRoupa = new ProdutoRoupas(produtoBaseRoupa, null, precoRoupa, tamanhoRoupa, generoRoupa);
+                                        ProdutoRoupas produtoRoupa = new ProdutoRoupas(produtobaseroupa, null, precoRoupa, tamanhoRoupa, generoRoupa);
 
-                                      
+                                        System.out.println("[DEBUG] ProdutoRoupas criado com base no Produto ID3: " + produtoRoupa.getIDProduto());
+
                                         stock.adicionarProduto(produtoRoupa, quantidadeInicialRoupa); // vai já com a quantidade inicial
                                         stock.salvarStock();
 

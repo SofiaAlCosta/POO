@@ -4,9 +4,10 @@ public class ProdutoRoupas extends Produto{
 	private String genero;
 	
 	public ProdutoRoupas(Produto p, String id, double preco, String tamanho, String genero) {
-		super(p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
+		super(p.getIDProduto(),p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
 		this.tamanho = tamanho;
 		this.genero = genero;
+		System.out.println("[DEBUG] ProdutoRoupas criado com base no Produto ID: " + p.getIDProduto());
 	}
 	
 	public String getTamanho() {

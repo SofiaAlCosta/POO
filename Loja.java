@@ -6,6 +6,7 @@ public class Loja {
        
         Stock stock = Stock.lerStock();
         Vendas vendaAtual = null;
+        ArrayList<Vendas> todasVendas = new ArrayList<>();
         
         try {
             boolean continuar = true;
@@ -56,6 +57,7 @@ public class Loja {
                                 System.out.println("7: Adicionar produto de Pesca ao stock");
                                 System.out.println("8: Adicionar Roupas ao stock");
                                 System.out.println("9: Mostrar stock");
+                                System.out.println("10. Ver Todas as Vendas");
                                 System.out.print("Escolha uma opção: ");
 
                                 int opcaoAdmin = myinputs.Ler.umInt();
@@ -231,7 +233,9 @@ public class Loja {
                                     case 9:
                                         stock.mostrarStock();
                                         break;
-
+                                    case 10:
+                                    	Vendas.listarVendas();
+                                        break;
                                     default:
                                         System.out.println("Opção inválida!");
                                 }
@@ -417,7 +421,7 @@ public class Loja {
                     case 3:
                         continuar = false;
                         break;
-
+            
                     default:
                         System.out.println("Opção inválida!");
                 }

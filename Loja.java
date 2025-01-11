@@ -28,7 +28,7 @@ public class Loja {
 	                    case 2:
 	                    	Cliente clienteLogado = Cliente.login();
 	
-	                        if (clienteLogado == null){
+	                    	if (clienteLogado != null && clienteLogado.getNome().startsWith("Admin-")){
 	
 	                            boolean continuarAdmin = true;
 
@@ -206,7 +206,6 @@ public class Loja {
                                         
                                         ProdutoRoupas produtoRoupa = new ProdutoRoupas(produtobaseroupa, null, precoRoupa, tamanhoRoupa, generoRoupa);
 
-                                        System.out.println("[DEBUG] ProdutoRoupas criado com base no Produto ID3: " + produtoRoupa.getIDProduto());
 
                                         stock.adicionarProduto(produtoRoupa, quantidadeInicialRoupa); // vai já com a quantidade inicial
                                         stock.salvarStock();

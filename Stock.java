@@ -66,7 +66,6 @@ public class Stock implements Serializable{
         if (catalogo.contains(produto)) {
             throw new LojaException("Produto já existe no catálogo.");
         }
-        System.out.println("[DEBUG] Adicionando Produto ao catálogo. ID: " + produto.getIDProduto());
         catalogo.add(produto);
         quantidades.add(quantidadeInicial);
     }
@@ -113,11 +112,10 @@ public class Stock implements Serializable{
                 }
             }
             Produto.setUltimoID(maiorID);
-            System.out.println("[DEBUG] Maior ID carregado do ficheiro: " + maiorID);
-
+            
             return stock;
         } catch (FileNotFoundException e) {
-            System.out.println("[DEBUG] Ficheiro de stock não encontrado. Criando novo.");
+            System.out.println("Ficheiro de stock não encontrado. Criando novo.");
             return new Stock();
         } catch (IOException | ClassNotFoundException e) {
             throw new LojaException("Erro ao carregar o stock.", e);

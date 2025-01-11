@@ -30,7 +30,7 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "Cliente {" +
-                "IDCliente='" + IDCliente + '\'' +
+                "ID='" + IDCliente + '\'' +
                 ", Nome='" + nome + '\'' +
                 ", Contacto='" + contacto + '\'' +
                 ", NIF=" + NIF +
@@ -75,7 +75,7 @@ public class Cliente implements Serializable {
                 (nome.equals("Hugo") && NIF == 255822243) ||
                 (nome.equals("Sofia") && NIF == 246385391)) {
                 System.out.println("Login como administrador bem-sucedido! Bem-vindo, Admin " + nome);
-                return null; // Admins retornam null
+                return new Cliente("Admin-" + nome, 0, 0);
             }
 
             // Verificar se é um cliente normal

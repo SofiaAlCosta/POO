@@ -25,25 +25,25 @@ public class Loja {
                         Cliente.registar();
                         break;
 
-                    case 2:
-                        System.out.println("Login");
-                        System.out.print("Nome: ");
-                        String nome = myinputs.Ler.umaString();
-
-                        System.out.print("Contacto: ");
-                        int contacto = myinputs.Ler.umInt();
-
-                        System.out.print("NIF: ");
-                        int nif = myinputs.Ler.umInt();
-
-                        if ((nome.equals("Tiago") && contacto == 912293655 && nif == 245386491) ||
-                                (nome.equals("Francisco") && contacto == 918815254 && nif == 263594530) ||
-                                (nome.equals("Hugo") && contacto == 935929079 && nif == 255822243) ||
-                                (nome.equals("Sofia") && contacto == 962196645 && nif == 246385391)) {
-
-                            System.out.println("\n\n\nBem-vindo, admin " + nome);
-
-                            boolean continuarAdmin = true;
+	                    case 2:
+	                        System.out.println("Login");
+	                        System.out.print("Nome: ");
+	                        String nome = myinputs.Ler.umaString();
+	
+	                        System.out.print("Contacto: ");
+	                        int contacto = myinputs.Ler.umInt();
+	
+	                        System.out.print("NIF: ");
+	                        int nif = myinputs.Ler.umInt();
+	
+	                        if ((nome.equals("Tiago") && contacto == 912293655 && nif == 245386491) ||
+	                                (nome.equals("Francisco") && contacto == 918815254 && nif == 263594530) ||
+	                                (nome.equals("Hugo") && contacto == 935929079 && nif == 255822243) ||
+	                                (nome.equals("Sofia") && contacto == 962196645 && nif == 246385391)) {
+	
+	                            System.out.println("\n\n\nBem-vindo, admin " + nome);
+	
+	                            boolean continuarAdmin = true;
 
                             while (continuarAdmin) {
                                 System.out.println("\n-------- Menu Admins ----------");

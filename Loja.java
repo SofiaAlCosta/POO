@@ -45,12 +45,13 @@ public class Loja {
                                 System.out.println("7: Adicionar produto de Pesca ao Stock");
                                 System.out.println("8: Adicionar Roupas ao Stock");
                                 System.out.println("9: Atualizar quantidade de um produto no Stock");
-                                System.out.println("10: Remover produto do Stock");
-                                System.out.println("11: Mostrar Stock");
-                                System.out.println("12:Limpar Stock");
+                                System.out.println("10: Aplicar desconto em um produto");
+                                System.out.println("11: Remover produto do Stock");
+                                System.out.println("12: Mostrar Stock");
+                                System.out.println("13:Limpar Stock");
                                 System.out.println("------- Gestão de vendas -------");
-                                System.out.println("13:Ver Todas as Vendas");
-                                System.out.println("14:Limpar todas as Vendas");
+                                System.out.println("14:Ver Todas as Vendas");
+                                System.out.println("15:Limpar todas as Vendas");
                                 System.out.print("Escolha uma opção: ");
 
                                 int opcaoAdmin = myinputs.Ler.umInt();
@@ -232,6 +233,40 @@ public class Loja {
                                         }
                                         break;
                                     case 10:
+                                        System.out.print("Digite o ID do produto para aplicar o desconto: ");
+                                        int idProduto = Ler.umInt();
+                                    
+                                        System.out.print("Digite o percentual de desconto (0-100): ");
+                                        double desconto = Ler.umDouble();
+                                    
+                                        Produto produtoEncontrado = null;
+                                    
+                                        // Percorrer o catálogo para encontrar o produto pelo ID
+                                        for (Produto produto : stock.getCatalogo()) {
+                                            if (produto.getIDProduto() == idProduto) {
+                                                produtoEncontrado = produto;
+                                                break;
+                                            }
+                                        }
+                                    
+                                        if (produtoEncontrado == null) {
+                                            System.out.println("Erro: Produto não encontrado.");
+                                            break;
+                                        }
+                                    
+                                        // Aplicar o desconto ao produto encontrado
+                                        double precoAntigo = produtoEncontrado.getPreco();
+                                        produtoEncontrado.setPreco(precoAntigo - (precoAntigo * desconto / 100));
+                                    
+                                        // Salvar a alteração no ficheiro binário
+                                        stock.salvarStock();
+                                    
+                                        // Exibir a mensagem de sucesso
+                                        System.out.printf("Desconto aplicado com sucesso!\nPreço original: %.2f\nPreço com desconto: %.2f\n",
+                                                          precoAntigo, produtoEncontrado.getPreco());
+                                        break;
+                                    
+                                    case 11:
                                     	System.out.print("Digite o ID do produto a ser removido: ");
                                         int idRemover = Ler.umInt();
                                         try {
@@ -242,16 +277,16 @@ public class Loja {
                                             System.out.println("Erro ao remover produto: " + e.getMessage());
                                         }
                                         break;
-                                    case 11:
+                                    case 12:
                                         stock.mostrarStock();
                                         break;
-                                    case 12:
+                                    case 13:
                                     	stock.limparStock();
                                         break;
-                                    case 13:
+                                    case 14:
                                     	Vendas.listarVendas();
                                         break;
-                                    case 14:
+                                    case 15:
                                     	Vendas.limparVendas();
                                     	break;
                                     default:

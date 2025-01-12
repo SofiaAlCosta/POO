@@ -227,6 +227,7 @@ public class Loja {
                                         break;
                                     case 12:
                                     	Vendas.limparVendas();
+                                    	break;
                                     default:
                                         System.out.println("Opção inválida!");
                                 }

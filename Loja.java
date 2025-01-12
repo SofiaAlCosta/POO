@@ -33,7 +33,8 @@ public class Loja {
 	                            boolean continuarAdmin = true;
 
                             while (continuarAdmin) {
-                                System.out.println("\n-------- Menu Admins ----------");
+                                System.out.println("\n-------- Menu Admins ----------\n");
+                                System.out.println("------- Gestão de Clientes -------");
                                 System.out.println("1: Mostrar todos clientes");
                                 System.out.println("2: Limpar Clientes");
                                 System.out.println("3: Remover Utilizador");
@@ -43,11 +44,13 @@ public class Loja {
                                 System.out.println("6: Adicionar produto de Caça ao Stock");
                                 System.out.println("7: Adicionar produto de Pesca ao Stock");
                                 System.out.println("8: Adicionar Roupas ao Stock");
-                                System.out.println("9: Mostrar Stock");
-                                System.out.println("10:Limpar Stock");
+                                System.out.println("9: Atualizar quantidade de um produto no Stock");
+                                System.out.println("10: Remover produto do Stock");
+                                System.out.println("11: Mostrar Stock");
+                                System.out.println("12:Limpar Stock");
                                 System.out.println("------- Gestão de vendas -------");
-                                System.out.println("11:Ver Todas as Vendas");
-                                System.out.println("12:Limpar todas as Vendas");
+                                System.out.println("13:Ver Todas as Vendas");
+                                System.out.println("14:Limpar todas as Vendas");
                                 System.out.print("Escolha uma opção: ");
 
                                 int opcaoAdmin = myinputs.Ler.umInt();
@@ -215,17 +218,40 @@ public class Loja {
 
                                         System.out.println("Produto de Roupa adicionado com sucesso!");
                                         break;
-
                                     case 9:
-                                        stock.mostrarStock();
+                                    	System.out.print("Digite o ID do produto a ser atualizado: ");
+                                        int idAtualizar = Ler.umInt();
+                                        System.out.print("Digite a nova quantidade: ");
+                                        int novaQuantidade = Ler.umInt();
+                                        try {
+                                            stock.definirQuantidade(idAtualizar, novaQuantidade);
+                                            stock.salvarStock();
+                                            System.out.println("Quantidade atualizada com sucesso!");
+                                        } catch (LojaException e) {
+                                            System.out.println("Erro ao atualizar quantidade: " + e.getMessage());
+                                        }
                                         break;
                                     case 10:
-                                    	stock.limparStock();
+                                    	System.out.print("Digite o ID do produto a ser removido: ");
+                                        int idRemover = Ler.umInt();
+                                        try {
+                                            stock.removerProduto(idRemover);
+                                            stock.salvarStock();
+                                            System.out.println("Produto removido com sucesso!");
+                                        } catch (LojaException e) {
+                                            System.out.println("Erro ao remover produto: " + e.getMessage());
+                                        }
                                         break;
                                     case 11:
-                                    	Vendas.listarVendas();
+                                        stock.mostrarStock();
                                         break;
                                     case 12:
+                                    	stock.limparStock();
+                                        break;
+                                    case 13:
+                                    	Vendas.listarVendas();
+                                        break;
+                                    case 14:
                                     	Vendas.limparVendas();
                                     	break;
                                     default:

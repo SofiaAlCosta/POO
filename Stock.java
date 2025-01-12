@@ -70,6 +70,31 @@ public class Stock implements Serializable{
         catalogo.add(produto);
         quantidades.add(quantidadeInicial);
     }
+    
+    public void definirQuantidade(int IDProduto, int novaQuantidade) {
+        if (novaQuantidade < 0) {
+            throw new LojaException("A quantidade não pode ser negativa.");
+        }
+        for (int i = 0; i < catalogo.size(); i++) {
+            if (catalogo.get(i).getIDProduto() == IDProduto) {
+                quantidades.set(i, novaQuantidade);
+                return;
+            }
+        }
+        throw new LojaException("Produto não encontrado no catálogo.");
+    }
+
+    
+    public void removerProduto(int IDProduto) {
+        for (int i = 0; i < catalogo.size(); i++) {
+            if (catalogo.get(i).getIDProduto() == IDProduto) {
+                catalogo.remove(i);
+                quantidades.remove(i);
+                return;
+            }
+        }
+        throw new LojaException("Produto não encontrado no catálogo.");
+    }
 
     public void atualizarStock(int IDProduto, int quantidade) {
         for (int i = 0; i < catalogo.size(); i++) {

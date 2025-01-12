@@ -35,16 +35,19 @@ public class Loja {
                             while (continuarAdmin) {
                                 System.out.println("\n-------- Menu Admins ----------");
                                 System.out.println("1: Mostrar todos clientes");
-                                System.out.println("2: Limpar Ficheiro");
+                                System.out.println("2: Limpar Clientes");
                                 System.out.println("3: Remover Utilizador");
                                 System.out.println("4: Voltar ao Menu Inicial");
                                 System.out.println("5: Sair");
                                 System.out.println("------- Gestão de stock -------");
-                                System.out.println("6: Adicionar produto de Caça ao stock");
-                                System.out.println("7: Adicionar produto de Pesca ao stock");
-                                System.out.println("8: Adicionar Roupas ao stock");
-                                System.out.println("9: Mostrar stock");
-                                System.out.println("10. Ver Todas as Vendas");
+                                System.out.println("6: Adicionar produto de Caça ao Stock");
+                                System.out.println("7: Adicionar produto de Pesca ao Stock");
+                                System.out.println("8: Adicionar Roupas ao Stock");
+                                System.out.println("9: Mostrar Stock");
+                                System.out.println("10:Limpar Stock");
+                                System.out.println("------- Gestão de vendas -------");
+                                System.out.println("11:Ver Todas as Vendas");
+                                System.out.println("12:Limpar todas as Vendas");
                                 System.out.print("Escolha uma opção: ");
 
                                 int opcaoAdmin = myinputs.Ler.umInt();
@@ -217,8 +220,13 @@ public class Loja {
                                         stock.mostrarStock();
                                         break;
                                     case 10:
+                                    	stock.limparStock();
+                                        break;
+                                    case 11:
                                     	Vendas.listarVendas();
                                         break;
+                                    case 12:
+                                    	Vendas.limparVendas();
                                     default:
                                         System.out.println("Opção inválida!");
                                 }

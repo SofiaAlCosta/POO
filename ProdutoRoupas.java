@@ -7,7 +7,6 @@ public class ProdutoRoupas extends Produto{
 		super(p.getIDProduto(),p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria(), p.getAtivo());
 		this.tamanho = tamanho;
 		this.genero = genero;
-		System.out.println("[DEBUG] ProdutoRoupas criado com base no Produto ID: " + p.getIDProduto());
 	}
 	
 	public String getTamanho() {

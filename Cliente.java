@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente implements Serializable { 
+	private static final long serialVersionUID = 1L;//compatibilidade entre versões de uma classe
     private int IDCliente;
     private String nome;
     private long contacto;
@@ -132,6 +133,7 @@ public class Cliente implements Serializable {
     }
     public static void limparClientes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+        	System.out.println("Clientes excluidos");
         } catch (IOException e) {
             System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
         }

@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.io.*;
 
 public class Vendas implements Serializable{
+	private static final long serialVersionUID = 1L; //compatibilidade entre versões de uma classe
     private String idVenda;
     private LocalDateTime dataVenda;
     private static final String FILENAME = "vendas.dat";
@@ -151,9 +152,10 @@ public class Vendas implements Serializable{
 
     
     public static void limparVendas() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))){
+        System.out.println("vendas excluidas");
         } catch (IOException e) {
-            System.out.println("Erro ao limpar o ficheiro de clientes. Detalhes: " + e.getMessage());
+            System.out.println("Erro ao limpar o ficheiro de vendas. Detalhes: " + e.getMessage());
         }
     }
     public void finalizarVenda() {

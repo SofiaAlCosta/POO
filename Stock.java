@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.io.*;
 public class Stock implements Serializable{
+	private static final long serialVersionUID = 1L; //compatibilidade entre versões de uma classe
     private ArrayList<Produto> catalogo;
     private ArrayList<Integer> quantidades;
     private static final String FILENAME = "stock.dat";
@@ -122,7 +123,24 @@ public class Stock implements Serializable{
         }
     }
 
-     
+    public void limparStock() {
+        try {
+            // Limpa os dados em memória
+            this.catalogo.clear();
+            this.quantidades.clear();
+
+            // Salva o estado vazio no ficheiro
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+                oos.writeObject(this); // Salva um stock vazio
+            }
+
+            System.out.println("Stock e ficheiro limpos com sucesso!");
+        } catch (IOException e) {
+            throw new LojaException("Erro ao limpar o stock e o ficheiro.", e);
+        }
+    }
+ 
+    
     public void mostrarStock() {
         System.out.println("Estado atual do stock:");
         for (int i = 0; i < catalogo.size(); i++) {

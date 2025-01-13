@@ -1,6 +1,6 @@
 # Hunting and Fishing Store
 
-Welcome to the **Hunting and Fishing Store** repository! This project provides a robust backend platform for managing a store specializing in hunting and fishing items. It features tools for managing inventory, categories, and sales while demonstrating key programming concepts and best practices.
+Welcome to the **Hunting and Fishing Store** repository! This project provides a robust backend platform for managing a store specializing in hunting and fishing items. It features tools for managing inventory, categories, and sales while demonstrating key programming concepts and best practices. Additionally, it serves as a learning tool to showcase the fundamentals and basics of backend development.
 
 ---
 
@@ -18,7 +18,6 @@ Welcome to the **Hunting and Fishing Store** repository! This project provides a
 
 ### File-Based Persistence
 - Data is stored in files (`clientes.dat`, `stock.dat`, `vendas.dat`), ensuring the application can retain information between sessions.
-
 
 ### User-Friendly CLI
 - Navigate through a simple and intuitive Command-Line Interface (CLI) to:

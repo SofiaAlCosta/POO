@@ -1,98 +1,180 @@
 # Hunting and Fishing Store
 
-Welcome to the **Hunting and Fishing Store** repository! This project provides a robust backend platform for managing a store specializing in hunting and fishing items. It features tools for managing inventory, categories, and sales while demonstrating key programming concepts and best practices. Additionally, it serves as a learning tool to showcase the fundamentals and basics of backend development.
+Welcome to the **Hunting and Fishing Store** repository! This project is a backend system for managing a specialized store for hunting and fishing equipment. The application showcases robust Object-Oriented Programming (OOP) concepts in Java, handling products, categories, customers, sales, and stock management effectively.
+
+---
+
+## Table of Contents
+
+1. [Features](#features)
+2. [Technologies Used](#technologies-used)
+3. [Setup Instructions](#setup-instructions)
+4. [Code Examples](#code-examples)
+5. [Future Improvements](#future-improvements)
+6. [Contact](#contact)
 
 ---
 
 ## Features
 
 ### Product Management
-- Add, update, and delete products in the inventory.
-- Keep track of stock levels and product details.
+- Create, update, and delete products in inventory.
+- Categorize products into distinct groups:
+  - **Hunting Gear**: Weapons, bows, and related equipment.
+  - **Fishing Supplies**: Bait, rods, and accessories.
+  - **Clothing**: Specialized attire for outdoor activities.
 
-### Categories
-- Organize products into categories such as:
-  - **Weapons**: Guns, bows, and other hunting gear.
-  - **Bait**: Fishing bait and related accessories.
-  - **Clothing**: Specialized attire for hunting and fishing.
+### Customer Management
+- Register and manage customers.
+- User-friendly authentication system with admin privileges.
 
-### File-Based Persistence
-- Data is stored in files (`clientes.dat`, `stock.dat`, `vendas.dat`), ensuring the application can retain information between sessions.
+### Sales and Stock Management
+- View stock availability in real-time.
+- Add items to a cart and finalize purchases.
+- Generate invoices automatically after each sale.
+- Manage inventory updates and stock levels efficiently.
 
-### User-Friendly CLI
-- Navigate through a simple and intuitive Command-Line Interface (CLI) to:
-  - View inventory.
-  - Add new products or categories.
-  - Simulate sales.
+### File-Based Data Persistence
+- Persist data locally using Java serialization to files like `clientes.dat`, `stock.dat`, and `vendas.dat`.
 
 ---
 
 ## Technologies Used
 
 - **Programming Language**: Java
-- **Data Storage**: File-based (no external database required)
-- **Development Concepts**: Object-Oriented Programming (OOP), exception handling, and modular code structure
+- **Data Storage**: File-based using serialization
+- **Development Paradigm**: Object-Oriented Programming (OOP)
 
 ---
 
-## Key Development Concepts
+## Setup Instructions
 
-### Object-Oriented Programming (OOP)
-This project leverages OOP principles to ensure the code is modular, reusable, and easy to maintain:
+To run the project locally, follow these steps:
 
-- **Encapsulation**: All data is accessed and modified through clearly defined methods, improving security and maintainability.
-- **Inheritance**: Shared behaviors are implemented in base classes and extended for specific functionalities.
-- **Polymorphism**: Interfaces and method overriding provide flexibility and scalability.
-- **Abstraction**: Simplifies complex operations by focusing on essential details and hiding implementation logic.
-
-### Exception Handling
-To ensure a stable and user-friendly system, the project incorporates:
-
-- **Custom Exceptions**: Domain-specific exceptions clarify error handling.
-- **Try-Catch Blocks**: Key operations are safeguarded to handle runtime errors gracefully.
-- **Logging**: Errors are logged with descriptive messages to assist debugging.
-- **Input Validation**: Prevent invalid data entry by validating inputs and throwing appropriate errors.
-
----
-
-## How to Run
-
-This project is designed for demonstration purposes and requires Java installed on your machine. Follow these steps:
-
-1. Clone this repository:
+1. Clone the repository:
    ```bash
    git clone https://github.com/Fegue3/Hunting-and-Fishing-Store.git
    ```
-2. Navigate to the project directory.
+
+2. Navigate to the project directory:
+   ```bash
+   cd Hunting-and-Fishing-Store
+   ```
+
 3. Compile the Java files:
    ```bash
    javac *.java
    ```
+
 4. Run the main program:
    ```bash
-   java Main
+   java Loja
    ```
+
+---
+
+## Code Examples
+
+### Registering a New Customer
+Below is a sample code snippet for registering a new customer:
+
+```java
+public static void registar() {
+        try {
+            System.out.print("Nome: ");
+            String nome = myinputs.Ler.umaString();
+
+            System.out.print("Contacto: ");
+            long contacto = myinputs.Ler.umLong();
+
+            System.out.print("NIF: ");
+            int NIF = myinputs.Ler.umInt();
+            
+            if (NIF < 100000000 || NIF > 999999999) { 
+                throw new LojaException("O NIF deve ter 9 dígitos.");
+            }
+            
+            Cliente novoCliente = new Cliente(nome, contacto, NIF);
+            adicionarCliente(novoCliente); 
+            System.out.println("Cliente registrado com sucesso!");
+        } catch (LojaException e) {
+            System.out.println("Erro ao registrar cliente: " + e.getMessage());
+        }
+    }
+
+```
+
+### Viewing Stock
+Example of displaying all stock items:
+
+```java
+public void salvarStock() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+            oos.writeObject(this);
+        } catch (IOException e) {
+            throw new LojaException("Erro ao salvar o stock.", e);
+        }
+    }
+```
+Sample Output:
+```
+Produto 1:
+  Nome: Fishing Rod
+  Descrição: High-quality carbon rod
+  Preço: 120.0
+  Categoria: Pesca
+  Ativo: true
+  Quantidade: 15
+```
+
+### Invoice Generation
+Generate and print a detailed invoice after a sale:
+
+```java
+public String gerarFatura() {
+        StringBuilder fatura = new StringBuilder();
+        fatura.append("=== Fatura ===\n");
+        fatura.append("ID da Venda: ").append(idVenda).append("\n");
+        fatura.append("Data: ").append(dataVenda).append("\n\n");
+        fatura.append("Cliente: ").append(cliente.getNome()).append("\n\n");
+        fatura.append("Produtos:\n");
+
+        double total = 0.0;
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            int quantidade = quantidades.get(i);
+            double subtotal = produto.getPreco() * quantidade;
+            total += subtotal;
+            fatura.append(String.format("- %s (x%d): %.2f\n", produto.getNome(), quantidade, subtotal));
+        }
+
+        fatura.append("\nTotal: ").append(String.format("%.2f", total)).append("\n");
+        return fatura.toString();
+    }
+```
 
 ---
 
 ## Future Improvements
 
-- **Enhanced Reporting**: Add graphical reports or detailed insights.
-- **Improved Data Storage**: Transition to a lightweight database like SQLite for better scalability.
-- **Frontend Integration**: Develop a simple GUI or web interface for better usability.
-- **Authentication Expansion**: Implement roles and permissions (e.g., admin vs. regular user).
+1. **Enhanced User Interface**: Develop a GUI or integrate a web-based frontend.
+2. **Database Integration**: Transition from file-based storage to a database like SQLite or MySQL for scalability.
+3. **Reporting Features**: Add graphical sales reports and analytics.
+4. **Authentication Enhancements**: Implement user roles and advanced security measures.
 
 ---
 
 ## Contact
 
-For more information or inquiries, please contact:
+For more details or inquiries:
 
 - **Author**: Francisco
-- **Email**: fp226766@gmail.com
+- **Email**: [fp226766@gmail.com](mailto:fp226766@gmail.com)
 - **GitHub**: [Fegue3](https://github.com/Fegue3)
 
 ---
 
-Thank you for checking out the **Hunting and Fishing Store** project!
+Thank you for exploring the **Hunting and Fishing Store** project! Your feedback is highly valued.
+
+This project serves to demonstrate my basic backend skills and understanding of foundational programming concepts.
 

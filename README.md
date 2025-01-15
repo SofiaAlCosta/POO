@@ -10,8 +10,9 @@ Welcome to the **Hunting and Fishing Store** repository! This project is a backe
 2. [Technologies Used](#technologies-used)
 3. [Setup Instructions](#setup-instructions)
 4. [Code Examples](#code-examples)
-5. [Future Improvements](#future-improvements)
-6. [Contact](#contact)
+5. [Program Outputs](#program-outputs)
+6. [Future Improvements](#future-improvements)
+7. [Contact](#contact)
 
 ---
 
@@ -101,7 +102,6 @@ public static void registar() {
             System.out.println("Erro ao registrar cliente: " + e.getMessage());
         }
     }
-
 ```
 
 ### Viewing Stock
@@ -151,6 +151,52 @@ public String gerarFatura() {
         fatura.append("\nTotal: ").append(String.format("%.2f", total)).append("\n");
         return fatura.toString();
     }
+
+```
+
+---
+
+## Program Outputs
+
+### CLI Welcome Screen
+
+```
+------------ Bem vindo à loja de Caça e Pesca! --------------
+
+Menu:
+1. Registar Cliente
+2. Login
+3. Sair
+Escolha uma opção:
+```
+
+### Example of Stock Display
+
+```
+Estado atual do stock:
+Produto 1:
+  Nome: Camuflagem
+  Descrição: Roupa resistente para caça
+  Preço: 75.00
+  Categoria: Roupa
+  Ativo: true
+  Quantidade: 10
+```
+
+### Example of Invoice Generation
+
+```
+=== Fatura ===
+ID da Venda: 12345-abcde
+Data: 2025-01-15T10:00:00
+
+Cliente: João Silva
+
+Produtos:
+- Fishing Rod (x1): 120.00
+- Bait Pack (x2): 30.00
+
+Total: 180.00
 ```
 
 ---

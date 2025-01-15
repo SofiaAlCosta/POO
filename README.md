@@ -199,7 +199,6 @@ Produtos:
 Total: 180.00
 ```
 
----
 ###CLI Admin Menu
 
 ```
@@ -224,7 +223,7 @@ Total: 180.00
 14:Ver Todas as Vendas
 15:Limpar todas as Vendas
 16:Estatisticas da Loja
-Escolha uma opção: 4
+Escolha uma opção: 
 ```
 
 ###CLI User Menu
@@ -241,6 +240,8 @@ Escolha uma opção: 4
 9: Sair
 Escolha uma opção: 
 ```
+
+---
 
 ## Future Improvements
 

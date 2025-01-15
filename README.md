@@ -169,6 +169,47 @@ Menu:
 3. Sair
 Escolha uma opção:
 ```
+### CLI User Menu
+```
+--------- Menu Cliente ---------
+1: Ver produtos de Caça
+2: Ver produtos de Pesca
+3: Ver produtos de Roupa
+4: Ver Carrinho de compras
+5: Remover conta
+6: Adicionar ao Carrinho
+7: Finalizar compra
+8: Voltar ao Menu Inicial
+9: Sair
+Escolha uma opção: 
+```
+
+### CLI Admin Menu
+
+```
+-------- Menu Admins ----------
+
+------- Gestão de Clientes -------
+1: Mostrar todos clientes
+2: Limpar Clientes
+3: Remover Utilizador
+4: Voltar ao Menu Inicial
+5: Sair
+------- Gestão de stock -------
+6: Adicionar produto de Caça ao Stock
+7: Adicionar produto de Pesca ao Stock
+8: Adicionar Roupas ao Stock
+9: Atualizar quantidade de um produto no Stock
+10: Aplicar desconto em um produto
+11: Remover produto do Stock
+12: Mostrar Stock
+13:Limpar Stock
+------- Gestão de vendas -------
+14:Ver Todas as Vendas
+15:Limpar todas as Vendas
+16:Estatisticas da Loja
+Escolha uma opção: 
+```
 
 ### Example of Stock Display
 
@@ -197,48 +238,6 @@ Produtos:
 - Bait Pack (x2): 30.00
 
 Total: 180.00
-```
-
-###CLI Admin Menu
-
-```
--------- Menu Admins ----------
-
-------- Gestão de Clientes -------
-1: Mostrar todos clientes
-2: Limpar Clientes
-3: Remover Utilizador
-4: Voltar ao Menu Inicial
-5: Sair
-------- Gestão de stock -------
-6: Adicionar produto de Caça ao Stock
-7: Adicionar produto de Pesca ao Stock
-8: Adicionar Roupas ao Stock
-9: Atualizar quantidade de um produto no Stock
-10: Aplicar desconto em um produto
-11: Remover produto do Stock
-12: Mostrar Stock
-13:Limpar Stock
-------- Gestão de vendas -------
-14:Ver Todas as Vendas
-15:Limpar todas as Vendas
-16:Estatisticas da Loja
-Escolha uma opção: 
-```
-
-###CLI User Menu
-```
---------- Menu Cliente ---------
-1: Ver produtos de Caça
-2: Ver produtos de Pesca
-3: Ver produtos de Roupa
-4: Ver Carrinho de compras
-5: Remover conta
-6: Adicionar ao Carrinho
-7: Finalizar compra
-8: Voltar ao Menu Inicial
-9: Sair
-Escolha uma opção: 
 ```
 
 ---

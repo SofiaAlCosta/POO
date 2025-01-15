@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.io.*;
 
@@ -190,4 +192,80 @@ public class Vendas implements Serializable{
             System.out.println();
         }
     }
+    public static void gerarEstatisticas(ArrayList<Vendas> todasVendas, Stock stock) {
+    if (todasVendas == null || todasVendas.isEmpty()) {
+        System.out.println("Nenhuma venda registrada.");
+        return;
+    }
+
+    double lucroTotal = 0.0;
+    ArrayList<Produto> produtosAnalisados = new ArrayList<>();
+    ArrayList<Integer> vendasPorProduto = new ArrayList<>();
+    HashMap<Cliente, Integer> clienteCompras = new HashMap<>();
+
+    // Processar vendas
+    for (Vendas venda : todasVendas) {
+        lucroTotal += venda.calcularTotalVenda();
+        ArrayList<Produto> produtos = venda.getProdutos();
+        ArrayList<Integer> quantidades = venda.getQuantidades();
+
+        // Processar produtos vendidos
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            int quantidade = quantidades.get(i);
+
+            int index = produtosAnalisados.indexOf(produto);
+            if (index >= 0) {
+                vendasPorProduto.set(index, vendasPorProduto.get(index) + quantidade);
+            } else {
+                produtosAnalisados.add(produto);
+                vendasPorProduto.add(quantidade);
+            }
+        }
+
+        // Processar clientes
+        Cliente cliente = venda.getCliente();
+        clienteCompras.put(cliente, clienteCompras.getOrDefault(cliente, 0) + 1);
+    }
+
+    // Encontrar produto mais e menos vendido
+    int maxIndex = 0, minIndex = 0;
+    for (int i = 1; i < vendasPorProduto.size(); i++) {
+        if (vendasPorProduto.get(i) > vendasPorProduto.get(maxIndex)) {
+            maxIndex = i;
+        }
+        if (vendasPorProduto.get(i) < vendasPorProduto.get(minIndex)) {
+            minIndex = i;
+        }
+    }
+
+    // Listar produtos nunca vendidos
+    ArrayList<Produto> produtosNuncaVendidos = new ArrayList<>(stock.getCatalogo());
+    produtosNuncaVendidos.removeAll(produtosAnalisados);
+
+    // Calcular total de produtos vendidos
+    int totalProdutosVendidos = 0;
+    for (int quantidade : vendasPorProduto) {
+        totalProdutosVendidos += quantidade;
+    }
+
+    // Exibir estatísticas
+    System.out.println("=== Estatísticas da Loja ===");
+    System.out.printf("Lucro Total Acumulado: %.2f\n", lucroTotal);
+    System.out.println("Produto Mais Vendido: " + produtosAnalisados.get(maxIndex).getNome() +
+                       " (Quantidade: " + vendasPorProduto.get(maxIndex) + ")");
+    System.out.println("Produto Menos Vendido: " + produtosAnalisados.get(minIndex).getNome() +
+                       " (Quantidade: " + vendasPorProduto.get(minIndex) + ")");
+    System.out.println("Total de Produtos Vendidos: " + totalProdutosVendidos);
+
+    System.out.println("Produtos Nunca Vendidos:");
+    if (produtosNuncaVendidos.isEmpty()) {
+        System.out.println("  Todos os produtos foram vendidos.");
+    } else {
+        for (Produto produto : produtosNuncaVendidos) {
+            System.out.println("  - " + produto.getNome());
+        }
+    }
+}
+
 }

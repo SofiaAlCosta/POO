@@ -52,6 +52,7 @@ public class Loja {
                                 System.out.println("------- Gestão de vendas -------");
                                 System.out.println("14:Ver Todas as Vendas");
                                 System.out.println("15:Limpar todas as Vendas");
+                                System.out.println("16:Estatisticas da Loja");
                                 System.out.print("Escolha uma opção: ");
 
                                 int opcaoAdmin = myinputs.Ler.umInt();
@@ -289,6 +290,10 @@ public class Loja {
                                     case 15:
                                     	Vendas.limparVendas();
                                     	break;
+                                    case 16:
+                                        ArrayList<Vendas> vendasDoFicheiro = Vendas.lerTodasVendas();
+                                        Vendas.gerarEstatisticas(vendasDoFicheiro, stock);
+                                        break;
                                     default:
                                         System.out.println("Opção inválida!");
                                 }

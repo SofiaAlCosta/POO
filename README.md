@@ -255,9 +255,9 @@ Total: 180.00
 
 For more details or inquiries:
 
-- **Author**: Francisco
-- **Email**: [fp226766@gmail.com](mailto:fp226766@gmail.com)
-- **GitHub**: [Fegue3](https://github.com/Fegue3)
+- **Author**: Sofia
+- **Email**: [sofiacosta2004@hotmail.com](mailto:sofiacosta2004@hotmail.com)
+- **GitHub**: [SofiaAlCosta]([https://github.com/SofiaAlCosta])
 
 ---
 
